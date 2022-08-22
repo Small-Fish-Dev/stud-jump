@@ -2,16 +2,17 @@
 
 public partial class PlayerController : PawnController
 {
-	private float jumpStrength { get; set; } = 375f;
-	private float speed { get; set; } = 215;
+	private static float studToInch => 11.023622f;
+	private float jumpStrength => 50f * studToInch;
+	private float speed => 16f * studToInch;
 
 	private Vector3 mins = new Vector3( -16f, -16f, 0f );
 	private Vector3 maxs = new Vector3( 16f, 16f, 72f );
 
 	public BBox CollisionBox => new( mins, maxs );
-	public Vector3 LastMoveDir { get; set; }
+	public Vector3 LastMoveDir { get; set; } = 0f;
 	
-	float gravity => 700f;
+	float gravity => 196.2f * studToInch;
 	
 	public override void Simulate()
 	{
@@ -40,7 +41,7 @@ public partial class PlayerController : PawnController
 		else
 		{
 			// Jumping.
-			if ( Input.Pressed( InputButton.Jump ) )
+			if ( Input.Down( InputButton.Jump ) )
 				Velocity += Vector3.Up * jumpStrength;
 		}
 
@@ -50,9 +51,10 @@ public partial class PlayerController : PawnController
 			MaxStandableAngle = 60f
 		};
 		helper.Trace = helper.Trace.Size( CollisionBox.Mins, CollisionBox.Maxs )
+			.WithoutTags( "player" )
 			.Ignore( Pawn );
 		helper.TryUnstuck();
-		helper.TryMove( Time.Delta );
+		helper.TryMoveWithStep( Time.Delta, 2f * studToInch );
 
 		Position = helper.Position;
 		Velocity = helper.Velocity;
