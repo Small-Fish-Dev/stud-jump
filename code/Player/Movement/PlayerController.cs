@@ -10,13 +10,13 @@ public partial class PlayerController : PawnController
 	private Vector3 maxs = new Vector3( 16f, 16f, 72f );
 
 	public BBox CollisionBox => new( mins, maxs );
-	public Vector3 LastMoveDir { get; set; } = 0f;
+	public Vector3 LastMoveDir { get; set; } = Vector3.Forward;
 	
 	float gravity => 196.2f * studToInch;
 	
 	public override void Simulate()
 	{
-		EyeRotation = Input.Rotation;
+		EyeRotation = Rotation.Lerp( EyeRotation, Input.Rotation, Time.Delta );
 		EyeLocalPosition = Vector3.Up * (CollisionBox.Maxs.z - 8);
 
 		// Handle wished direction and speed.

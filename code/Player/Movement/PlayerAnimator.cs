@@ -7,8 +7,8 @@ public partial class PlayerAnimator : PawnAnimator
 		if ( Pawn is not Player pawn ) return;
 		if ( pawn.Controller is not PlayerController controller ) return;
 
-		var rot = Rotation.LookAt( controller.LastMoveDir );
-		Rotation = Rotation.FromYaw( rot.Yaw() );
+		var rot = Rotation.LookAt( controller.LastMoveDir.WithZ( 0f ), Vector3.Up );
+		Rotation = Rotation.Lerp( Rotation, rot, Time.Delta * 10f );
 
 		var helper = new CitizenAnimationHelper( Pawn as AnimatedEntity );
 		helper.WithVelocity( Velocity );

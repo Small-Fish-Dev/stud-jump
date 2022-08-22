@@ -2,7 +2,7 @@
 
 partial class Player
 {
-	public float Distance { get; set; }
+	public float Distance { get; set; } = 150f;
 	private float lastDist;
 
 	public override void PostCameraSetup( ref CameraSetup setup )
@@ -20,7 +20,7 @@ partial class Player
 		setup.ZNear = 4f;
 		setup.FieldOfView = 70;
 
-		var alpha = MathX.Clamp( (CurrentView.Position.Distance( pawn.EyePosition ) - 40f) / 200f, 0.5f, 1f );
+		var alpha = MathX.Clamp( CurrentView.Position.Distance( pawn.EyePosition ) / 50f , 0f, 1f );
 		pawn.RenderColor = Color.White.WithAlpha( alpha );
 		foreach ( var child in pawn.Children )
 			if ( child is ModelEntity ent ) ent.RenderColor = pawn.RenderColor;
@@ -29,6 +29,6 @@ partial class Player
 	[Event.BuildInput]
 	private void cameraInput( InputBuilder input )
 	{
-		Distance = MathX.Clamp( Distance - input.MouseWheel * 25f, 100, 500 );
+		Distance = MathX.Clamp( Distance - input.MouseWheel * 25f * ( 1f + Distance / 100f ), 0f, 1500f );
 	}
 }
