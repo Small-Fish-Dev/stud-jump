@@ -39,10 +39,12 @@ partial class Game
 			var v2 = pos + new Vector3( 0f, 0f, height ) * scale;
 			var v3 = pos + new Vector3( 0f, size, 0f ) * scale;
 			var v4 = pos + new Vector3( 0f, size, height ) * scale;
-			var v5 = pos + new Vector3( size, 0f, height ) * scale;
-			var v6 = pos + new Vector3( size, size, height ) * scale;
+			var v5 = pos + new Vector3( size / 10f, 0f, height ) * scale;
+			var v6 = pos + new Vector3( size / 10f, size, height ) * scale;
+			var v7 = pos + new Vector3( size, 0f, height ) * scale;
+			var v8 = pos + new Vector3( size, size, height ) * scale;
 
-			collisionVerts.AddRange( new List<Vector3>() { v1, v2, v3, v4, v5, v6 } );
+			collisionVerts.AddRange( new List<Vector3>() { v1, v2, v3, v4, v7, v8 } );
 
 			if ( Host.IsClient )
 			{
@@ -93,12 +95,28 @@ partial class Game
 					tangent = normalToTangent( Vector3.Up ),
 					texcoord = new Vector3( 1f, 0f )
 				} );
+
+				vertices.Add( new SimpleVertex()
+				{
+					position = v7,
+					normal = Vector3.Up,
+					tangent = normalToTangent( Vector3.Backward ),
+					texcoord = new Vector3( 0f, 1f )
+				} );
+
+				vertices.Add( new SimpleVertex()
+				{
+					position = v8,
+					normal = Vector3.Up,
+					tangent = normalToTangent( Vector3.Up ),
+					texcoord = new Vector3( 1f, 1f )
+				} );
 			}
 
-			var meshIndices = new List<int> { 0, 1, 2, 2, 1, 3, 1, 4, 3, 3, 4, 5 };
+			var meshIndices = new List<int> { 0, 1, 2, 2, 1, 3, 1, 4, 3, 3, 4, 5, 4, 6, 5, 5, 6, 7 };
 
 			var i = offset;
-			indices.AddRange( new List<int> { i + 0, i + 1, i + 2, i + 1, i + 2, i + 3, i + 1, i + 3, i + 4, i + 5, i + 3, i + 4 } );
+			indices.AddRange( new List<int> { i + 0, i + 1, i + 2, i + 1, i + 2, i + 3, i + 3, i + 1, i + 4, i + 5, i + 3, i + 4 } );
 			offset += 6;
 
 			mesh.CreateVertexBuffer( vertices.Count, SimpleVertex.Layout, vertices );
@@ -114,7 +132,20 @@ partial class Game
 		{
 			var size = studToInch * 12.5f;
 			var height = (i + 1) * 0.5f * studToInch;
-			meshes.Add( createStep( new Vector3( i * size, 0, totalHeight ), size, height ) );
+			var pos = new Vector3( i * size, 0, totalHeight );
+			meshes.Add( createStep( pos, size, height ) );
+			
+			if ( Host.IsServer )
+			{
+				var checkpoint = new Checkpoint();
+				checkpoint.Position = pos 
+					+ Vector3.Up * (height + 3.5f) 
+					+ Vector3.Left * size / 2f 
+					+ Vector3.Forward * size / 2f;
+				checkpoint.Level = i;
+				checkpoint.Transmit = TransmitType.Always;
+			}
+
 			totalHeight += height;
 		}
 
@@ -124,5 +155,15 @@ partial class Game
 			.AddMeshes( meshes.ToArray() )
 			.Create();
 		Map.SetupPhysicsFromModel( PhysicsMotionType.Static );
+	}
+
+	[Event.Hotload]
+	private static void resetMap()
+	{
+		if ( Host.IsServer)
+			foreach ( var checkpoint in Entity.All.OfType<Checkpoint>() )
+				checkpoint?.Delete();
+
+		Instance.GenerateLevel();
 	}
 }

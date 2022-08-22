@@ -11,16 +11,24 @@ partial class Player
 		if ( pawn.Controller is not PlayerController controller ) return;
 
 		lastDist = MathX.LerpTo( lastDist, Distance, 10f * Time.Delta );
-		setup.Position = pawn.EyePosition + pawn.EyeRotation.Backward * lastDist;
+		var tr = Trace.Ray( new Ray( pawn.EyePosition, pawn.EyeRotation.Backward ), lastDist )
+			.Ignore( pawn )
+			.Run();
+		setup.Position = tr.EndPosition;
 		setup.Rotation = pawn.EyeRotation;
 		setup.Viewer = null;
 		setup.ZNear = 4f;
 		setup.FieldOfView = 70;
+
+		var alpha = MathX.Clamp( (CurrentView.Position.Distance( pawn.EyePosition ) - 40f) / 200f, 0.5f, 1f );
+		pawn.RenderColor = Color.White.WithAlpha( alpha );
+		foreach ( var child in pawn.Children )
+			if ( child is ModelEntity ent ) ent.RenderColor = pawn.RenderColor;
 	}
 
 	[Event.BuildInput]
 	private void cameraInput( InputBuilder input )
 	{
-		Distance = MathX.Clamp( Distance - input.MouseWheel * 15f, 100, 300 );
+		Distance = MathX.Clamp( Distance - input.MouseWheel * 25f, 100, 500 );
 	}
 }
