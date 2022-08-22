@@ -28,8 +28,8 @@ partial class Game
 			if ( Host.IsClient )
 			{
 				var col = new Color( Rand.Float( 1 ), Rand.Float( 1 ), Rand.Float( 1 ) ).ToColor32();
-				var tex = Texture.Create( 2, 2 )
-					.WithData( new[] { col.r, col.g, col.b, (byte)255, col.r, col.g, col.b, (byte)255, col.r, col.g, col.b, (byte)255, col.r, col.g, col.b, (byte)255 } )
+				var tex = Texture.Create( 1, 1 )
+					.WithData( new[] { col.r, col.g, col.b, (byte)255 } )
 					.Finish();
 				mat.OverrideTexture( "tint", tex );
 			}
