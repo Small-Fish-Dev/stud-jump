@@ -14,8 +14,10 @@
     "MaxPlayers": 24,
     "MinPlayers": 1,
     "GameNetworkType": "Multiplayer",
-    "MapSelect": "Unrestricted",
-    "MapList": [],
+    "MapSelect": "Hidden",
+    "MapList": [
+      "stud-jump"
+    ],
     "RankType": "None",
     "PerMapRanking": false,
     "LeaderboardType": "None",

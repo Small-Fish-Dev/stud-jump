@@ -91,4 +91,12 @@ public partial class Player : AnimatedEntity
 		volume *= Velocity.WithZ( 0 ).Length.LerpInverse( 0.0f, 200.0f ) * 0.5f;
 		tr.Surface.DoFootstep( this, tr, foot, 1f );
 	}
+
+	public void SetCheckpoint( Checkpoint checkpoint )
+	{
+
+
+
+	}
+
 }
