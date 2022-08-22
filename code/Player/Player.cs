@@ -31,7 +31,11 @@ public partial class Player : AnimatedEntity
 		EnableHideInFirstPerson = true;
 		EnableShadowInFirstPerson = true;
 
-		Position = Vector3.Zero;
+		Position = Entity.All
+			.OfType<Checkpoint>()
+			.Where( x => x.Level == 0 )
+			.First().Position;
+
 		Rotation = Transform.Zero.Rotation;
 
 		ResetInterpolation();
