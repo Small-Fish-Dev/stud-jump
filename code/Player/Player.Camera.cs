@@ -21,7 +21,6 @@ partial class Player
 	[Event.BuildInput]
 	private void cameraInput( InputBuilder input )
 	{
-		Log.Error( "Hi" );
 		Distance = MathX.Clamp( Distance - input.MouseWheel * 5f, 100, 300 );
 	}
 }

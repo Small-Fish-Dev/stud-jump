@@ -4,12 +4,12 @@ public partial class Player : AnimatedEntity
 {
 	[Net, Predicted] public PawnController Controller { get; set; }
 	[Net, Predicted] public PawnAnimator Animator { get; set; }
+	public Checkpoint CheckpointReached { get; set; }
 
 	public ClothingContainer Clothing = new();
 
 	public override void Spawn()
 	{
-		Tags.Add( "player" );
 
 		Controller ??= new PlayerController();
 		Animator ??= new PlayerAnimator();
@@ -18,6 +18,8 @@ public partial class Player : AnimatedEntity
 		var capsule = Capsule.FromHeightAndRadius( controller.CollisionBox.Maxs.z, controller.CollisionBox.Maxs.x );
 		SetModel( "models/citizen/citizen.vmdl" );
 		SetupPhysicsFromCapsule( PhysicsMotionType.Keyframed, capsule );
+
+		Tags.Add( "player" );
 
 		Respawn();
 	}
@@ -95,7 +97,7 @@ public partial class Player : AnimatedEntity
 	public void SetCheckpoint( Checkpoint checkpoint )
 	{
 
-
+		checkpoint.CheckpointAnimation( To.Single( Client ) );
 
 	}
 
