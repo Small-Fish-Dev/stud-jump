@@ -7,7 +7,7 @@ Layer0
 	//---- Color ----
 	g_flModelTintAmount "1.000"
 	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
-	TextureColor "materials/stud_color.tga"
+	TextureColor "materials/studs.png"
 
 	//---- Fade ----
 	g_flFadeExponent "1.000"
@@ -23,10 +23,10 @@ Layer0
 	g_flMetalness "0.000"
 
 	//---- Normal ----
-	TextureNormal "materials/stud_normal.tga"
+	TextureNormal "[0.501961 0.501961 1.000000 0.000000]"
 
 	//---- Roughness ----
-	TextureRoughness "materials/default/default_rough.tga"
+	TextureRoughness "[1.000000 1.000000 1.000000 0.000000]"
 
 	//---- Texture Coordinates ----
 	g_nScaleTexCoordUByModelScaleAxis "0"
@@ -37,7 +37,7 @@ Layer0
 
 	SystemAttributes
 	{
-		WorldMappingWidth "44"
-		WorldMappingHeight "44"
+		WorldMappingWidth "22"
+		WorldMappingHeight "22"
 	}
 }
