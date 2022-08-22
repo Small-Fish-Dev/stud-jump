@@ -10,14 +10,13 @@ public partial class Player : AnimatedEntity
 
 	public override void Spawn()
 	{
-
 		Controller ??= new PlayerController();
 		Animator ??= new PlayerAnimator();
 
 		var controller = Controller as PlayerController;
-		var capsule = Capsule.FromHeightAndRadius( controller.CollisionBox.Maxs.z, controller.CollisionBox.Maxs.x );
+
 		SetModel( "models/citizen/citizen.vmdl" );
-		SetupPhysicsFromCapsule( PhysicsMotionType.Keyframed, capsule );
+		SetupPhysicsFromAABB( PhysicsMotionType.Keyframed, controller.CollisionBox.Mins, controller.CollisionBox.Maxs );
 
 		Tags.Add( "player" );
 
