@@ -52,6 +52,7 @@ public partial class PlayerController : PawnController
 		};
 		helper.Trace = helper.Trace.Size( CollisionBox.Mins, CollisionBox.Maxs )
 			.WithoutTags( "player" )
+			.IncludeClientside()
 			.Ignore( Pawn );
 		helper.TryUnstuck();
 		helper.TryMoveWithStep( Time.Delta, 2f * studToInch );

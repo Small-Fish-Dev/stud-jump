@@ -79,6 +79,7 @@ public partial class Checkpoint : ModelEntity
 		{
 
 			animationModel.Delete();
+			animationModel = null;
 
 		}
 
