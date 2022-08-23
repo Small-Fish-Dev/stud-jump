@@ -16,8 +16,11 @@ public partial class Player : AnimatedEntity
 
 		var controller = Controller as PlayerController;
 
-		SetModel( "models/citizen/citizen.vmdl" );
+		SetModel( "models/citizenstud/citizenstud.vmdl" );
 		SetupPhysicsFromAABB( PhysicsMotionType.Keyframed, controller.CollisionBox.Mins, controller.CollisionBox.Maxs );
+
+		UseAnimGraph = false;
+		PlaybackRate = 0f;
 
 		Tags.Add( "player" );
 
@@ -53,16 +56,30 @@ public partial class Player : AnimatedEntity
 	public override void Simulate( Client cl )
 	{
 		Controller?.Simulate( cl, this, Animator );
-		
+
 		if ( Host.IsServer )
 			UpdateEyePosition();
 
 		if ( Position.z <= Game.StudToInch * -4 )
 		{
 
-			Velocity = Vector3.Zero;
-			Position = CheckpointReached.Position;
-			ResetInterpolation();
+			if ( CheckpointReached == null )
+			{
+
+				Position = Entity.All
+			   .OfType<Checkpoint>()
+			   .Where( x => x.Level == 0 )
+			   .First().Position;
+
+			}
+			else
+			{
+
+				Velocity = Vector3.Zero;
+				Position = CheckpointReached.Position;
+				ResetInterpolation();
+
+			}
 
 		}
 
