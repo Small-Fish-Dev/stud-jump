@@ -35,7 +35,6 @@ public class MyCustomBot : Bot
 			var endPos = startPos + Client.Pawn.Rotation.Forward * 32f;
 			var wallTrace = Trace.Ray( startPos, endPos )
 				.Size( Game.StudToInch / 2f )
-				.WithoutTags( "player" )
 				.Run();
 
 			if ( wallTrace.Hit )

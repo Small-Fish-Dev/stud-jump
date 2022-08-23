@@ -151,6 +151,20 @@ partial class Game
 				checkpoint.Level = i;
 				checkpoint.Transmit = TransmitType.Always;
 			}
+			else if ( i * 0.5f > 3f )
+			{
+				var h = 375f;
+				var worldPanel = new WorldPanel()
+				{
+					Position = pos + Vector3.Up * height / 2f + point.WithY( 0 ) + Vector3.Backward * 1f,
+					Rotation = Rotation.LookAt( Vector3.Backward ).RotateAroundAxis( Vector3.Forward, -90f ),
+					PanelBounds = new Rect( -size * 10f, -h / 2f, size * 20f, h ),
+					StyleSheet = HUD.Instance.StyleSheet
+				};
+				worldPanel.AddClass( "heightCount" );
+				var label = worldPanel.AddChild<Label>();
+				label.Text = $" {i * 0.5f} studs ";
+			}
 
 			totalHeight += height;
 		}
@@ -162,15 +176,5 @@ partial class Game
 			.AddMeshes( meshes.ToArray() )
 			.Create();
 		Map.SetupPhysicsFromModel( PhysicsMotionType.Static );
-	}
-
-	[Event.Hotload]
-	private static void resetMap()
-	{
-		if ( Host.IsServer)
-			foreach ( var checkpoint in Entity.All.OfType<Checkpoint>().Where( x => x.Level != 0) )
-				checkpoint?.Delete();
-
-		Instance.GenerateLevel();
 	}
 }

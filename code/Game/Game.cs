@@ -20,6 +20,7 @@ partial class Game : GameBase
 	public Game()
 	{
 		Instance = this;
+		Event.Run( "start" );
 		GenerateLevel();
 	}
 

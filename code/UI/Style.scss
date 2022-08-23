@@ -1,0 +1,42 @@
+﻿.heightCount {
+    width: 100%;
+    height: 100%;
+    color: white;
+    font-family: 'Comic Sans MS';
+    font-size: 128px;
+    text-stroke: 6px black;
+    text-shadow: 4px 4px 10px black;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+
+    Label {
+        border-radius: 50px;
+        height: 100%;
+        background-color: rgba(black, 0.5);
+    }
+}
+
+.nameplate {
+    position: absolute;
+    text-align: center;
+    justify-content: center;
+
+    .avatar {
+        border-radius: 50%;
+        top: 16px;
+        width: 48px;
+        aspect-ratio: 1;
+        background-size: 100%;
+        border: 2px black;
+    }
+
+    .name {
+        padding-left: 10px;
+        font-family: 'Comic Sans MS';
+        color: white;
+        font-size: 48px;
+        text-stroke: 4px black;
+        text-shadow: 4px 4px 5px black;
+    }
+}

@@ -2,6 +2,8 @@
 
 public partial class PlayerController : PawnController
 {
+	[Net, Local] public float RandomStep { get; set; }
+
 	private static float StudToInch => 11f;
 	private float jumpStrength => 50f * StudToInch;
 	private float speed => 16f * StudToInch;
@@ -42,7 +44,14 @@ public partial class PlayerController : PawnController
 		{
 			// Jumping.
 			if ( Input.Down( InputButton.Jump ) )
+			{
 				Velocity += Vector3.Up * jumpStrength;
+
+				using ( Prediction.Off() )
+				{
+					RandomStep = Rand.Float( 0.2f, 3.2f );
+				}
+			}
 		}
 
 		// Get and set new position according to velocity.
@@ -51,11 +60,10 @@ public partial class PlayerController : PawnController
 			MaxStandableAngle = 60f
 		};
 		helper.Trace = helper.Trace.Size( CollisionBox.Mins, CollisionBox.Maxs )
-			.WithoutTags( "player" )
 			.IncludeClientside()
 			.Ignore( Pawn );
 		helper.TryUnstuck();
-		helper.TryMoveWithStep( Time.Delta, 2f * StudToInch );
+		helper.TryMoveWithStep( Time.Delta, RandomStep * StudToInch );
 
 		Position = helper.Position;
 		Velocity = helper.Velocity;
