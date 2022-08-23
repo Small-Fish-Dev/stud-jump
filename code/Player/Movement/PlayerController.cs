@@ -2,9 +2,9 @@
 
 public partial class PlayerController : PawnController
 {
-	private static float studToInch => 11f;
-	private float jumpStrength => 50f * studToInch;
-	private float speed => 16f * studToInch;
+	private static float StudToInch => 11f;
+	private float jumpStrength => 50f * StudToInch;
+	private float speed => 16f * StudToInch;
 
 	private Vector3 mins = new Vector3( -16f, -16f, 0f );
 	private Vector3 maxs = new Vector3( 16f, 16f, 72f );
@@ -12,7 +12,7 @@ public partial class PlayerController : PawnController
 	public BBox CollisionBox => new( mins, maxs );
 	public Vector3 LastMoveDir { get; set; } = Vector3.Forward;
 	
-	float gravity => 196.2f * studToInch;
+	float gravity => 196.2f * StudToInch;
 	
 	public override void Simulate()
 	{
@@ -55,7 +55,7 @@ public partial class PlayerController : PawnController
 			.IncludeClientside()
 			.Ignore( Pawn );
 		helper.TryUnstuck();
-		helper.TryMoveWithStep( Time.Delta, 2f * studToInch );
+		helper.TryMoveWithStep( Time.Delta, 2f * StudToInch );
 
 		Position = helper.Position;
 		Velocity = helper.Velocity;

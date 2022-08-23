@@ -13,6 +13,7 @@ partial class Player
 		lastDist = MathX.LerpTo( lastDist, Distance, 10f * Time.Delta );
 		var tr = Trace.Ray( new Ray( pawn.EyePosition, pawn.EyeRotation.Backward ), lastDist )
 			.Ignore( pawn )
+			.WithoutTags( "player" )
 			.Radius( 4f )
 			.IncludeClientside()
 			.Run();

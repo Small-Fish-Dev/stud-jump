@@ -2,7 +2,7 @@
 
 partial class Game
 {
-	private static float studToInch => 11f;
+	public static float StudToInch => 11f;
 	private static Material defaultMat = Material.Load( "materials/stud.vmat" );
 
 	public ModelEntity Map { get; private set; }
@@ -91,7 +91,7 @@ partial class Game
 						position = pos,
 						normal = normal,
 						tangent = tangent,
-						texcoord = planar( (pos - maxs) * studToInch / 256f, uAxis[i], vAxis[i] )
+						texcoord = planar( (pos - maxs) * StudToInch / 256f, uAxis[i], vAxis[i] )
 					} );
 				}
 
@@ -117,9 +117,9 @@ partial class Game
 		{
 			cubeCount = 0;
 
-			var size = 15f * studToInch;
-			var height = i * 0.5f * studToInch;
-			var pos = new Vector3( (i + 1) * (size + studToInch) - studToInch * 2f, 0, totalHeight + studToInch / 4f );
+			var size = 15f * StudToInch;
+			var height = i * 0.5f * StudToInch;
+			var pos = new Vector3( (i + 1) * (size + StudToInch) - StudToInch * 2f, 0, totalHeight + StudToInch / 4f );
 
 			var mat = defaultMat.CreateCopy();
 			if ( Host.IsClient )
@@ -135,9 +135,9 @@ partial class Game
 			var vertices = new List<SimpleVertex>();
 			var indices = new List<int>();
 			var mesh = new Mesh( mat );
-			var point = new Vector3( size / 2f, size / 2f, studToInch / 2f );
+			var point = new Vector3( size / 2f, size / 2f, StudToInch / 2f );
 			createCube( pos - point, pos + point, ref vertices, ref indices );
-			createCube( pos - point.WithX( -point.x ), pos + new Vector3( point.x + studToInch, point.y, height + studToInch / 2f ), ref vertices, ref indices );
+			createCube( pos - point.WithX( -point.x ), pos + new Vector3( point.x + StudToInch, point.y, height + StudToInch / 2f ), ref vertices, ref indices );
 			
 			mesh.CreateVertexBuffer( vertices.Count, SimpleVertex.Layout, vertices );
 			mesh.CreateIndexBuffer( indices.Count, indices );
@@ -168,7 +168,7 @@ partial class Game
 	private static void resetMap()
 	{
 		if ( Host.IsServer)
-			foreach ( var checkpoint in Entity.All.OfType<Checkpoint>() )
+			foreach ( var checkpoint in Entity.All.OfType<Checkpoint>().Where( x => x.Level != 0) )
 				checkpoint?.Delete();
 
 		Instance.GenerateLevel();
