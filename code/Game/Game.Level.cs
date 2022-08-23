@@ -4,6 +4,7 @@ partial class Game
 {
 	public static float StudToInch => 11f;
 	private static Material defaultMat = Material.Load( "materials/stud.vmat" );
+	private List<Material> materials = new();
 
 	public ModelEntity Map { get; private set; }
 	
@@ -113,7 +114,7 @@ partial class Game
 		var totalHeight = 0f;
 		var meshes = new List<Mesh>();
 
-		for ( int i = 1; i < 17 * 2; i++ )
+		for ( int i = 1; i < 100; i++ )
 		{
 			cubeCount = 0;
 
@@ -130,6 +131,7 @@ partial class Game
 					.WithData( new[] { col.r, col.g, col.b, (byte)255 } )
 					.Finish();
 				mat.OverrideTexture( "tint", tex );
+				materials.Add( mat );
 			}
 
 			var vertices = new List<SimpleVertex>();
