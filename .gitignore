@@ -9,3 +9,4 @@ code/.vs/*
 tools_asset_info.bin
 *_bakeresourcecache
 *.assbin
+*.vtex_c
