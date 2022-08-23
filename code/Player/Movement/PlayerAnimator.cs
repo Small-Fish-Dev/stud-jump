@@ -12,7 +12,7 @@ public partial class PlayerAnimator : PawnAnimator
 
 		ComputeAnimation( pawn );
 
-	}	
+	}
 	
 	public override void FrameSimulate()
 	{
@@ -24,7 +24,7 @@ public partial class PlayerAnimator : PawnAnimator
 
 	}
 
-	TimeSince animationStart = 0f;
+	float animationStart = 0f;
 	string currentAnimation = "idle";
 
 	public void ComputeAnimation( Player pawn )
@@ -39,11 +39,13 @@ public partial class PlayerAnimator : PawnAnimator
 		{
 
 			currentAnimation = pawn.CurrentSequence.Name;
-			animationStart = 0f;
+			animationStart = Time.Now;
 
 		}
 
-		pawn.CurrentSequence.Time = midair ? Math.Min( animationStart, pawn.CurrentSequence.Duration ) : animationStart % pawn.CurrentSequence.Duration;
+		var animationTime = Time.Now - animationStart;
+
+		pawn.CurrentSequence.Time = midair ? Math.Min( animationTime, pawn.CurrentSequence.Duration ) : animationTime % pawn.CurrentSequence.Duration;
 
 	}
 }

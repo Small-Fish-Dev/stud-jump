@@ -20,7 +20,7 @@ public partial class Player : AnimatedEntity
 		SetupPhysicsFromAABB( PhysicsMotionType.Keyframed, controller.CollisionBox.Mins, controller.CollisionBox.Maxs );
 
 		UseAnimGraph = false;
-		PlaybackRate = 0f;
+		PlaybackRate = 1f;
 
 		Tags.Add( "player" );
 
@@ -44,6 +44,40 @@ public partial class Player : AnimatedEntity
 		ResetInterpolation();
 	}
 
+	[Event.Tick.Client]
+	public void AnimateOthers() // The PlayerAnimator doesn't play the jump animation?
+	{
+
+		if ( Local.Pawn == this ) return;
+
+		ComputeAnimation();
+
+	}
+
+	TimeSince animationStart = 0f;
+	string currentAnimation = "idle";
+
+	public void ComputeAnimation()
+	{
+
+		var pawn = this;
+
+		bool midair = pawn.GroundEntity == null;
+		bool moving = pawn.Velocity.Length >= 5f;
+
+		pawn.CurrentSequence.Name = midair ? "jump" : moving ? "run" : "idle";
+
+		if ( pawn.CurrentSequence.Name != currentAnimation )
+		{
+
+			currentAnimation = pawn.CurrentSequence.Name;
+			animationStart = 0f;
+
+		}
+
+		pawn.CurrentSequence.Time = midair ? Math.Min( animationStart, pawn.CurrentSequence.Duration ) : animationStart % pawn.CurrentSequence.Duration;
+
+	}
 
 	public void UpdateEyePosition()
 	{
@@ -56,7 +90,7 @@ public partial class Player : AnimatedEntity
 	public override void Simulate( Client cl )
 	{
 		Controller?.Simulate( cl, this, Animator );
-
+		
 		if ( Host.IsServer )
 			UpdateEyePosition();
 
