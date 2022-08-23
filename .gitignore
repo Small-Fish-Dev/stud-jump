@@ -8,3 +8,4 @@ code/.vs/*
 *.bin
 tools_asset_info.bin
 *_bakeresourcecache
+*.assbin
