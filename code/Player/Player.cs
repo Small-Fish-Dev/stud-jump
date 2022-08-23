@@ -4,6 +4,7 @@ public partial class Player : AnimatedEntity
 {
 	[Net, Predicted] public PawnController Controller { get; set; }
 	[Net, Predicted] public PawnAnimator Animator { get; set; }
+	
 	public Checkpoint CheckpointReached { get; set; }
 
 	public ClothingContainer Clothing = new();
@@ -104,12 +105,4 @@ public partial class Player : AnimatedEntity
 		volume *= Velocity.WithZ( 0 ).Length.LerpInverse( 0.0f, 200.0f ) * 0.5f;
 		tr.Surface.DoFootstep( this, tr, foot, 1f );
 	}
-
-	public void SetCheckpoint( Checkpoint checkpoint )
-	{
-
-		checkpoint.CheckpointAnimation( To.Single( Client ) );
-
-	}
-
 }

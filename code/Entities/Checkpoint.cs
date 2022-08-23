@@ -40,6 +40,7 @@ public partial class Checkpoint : ModelEntity
 		{
 
 			player.CheckpointReached = this;
+			player.Experience += Level * 5;
 			CheckpointAnimation( To.Single( player.Client ) );
 
 		}

@@ -2,8 +2,6 @@
 
 public partial class PlayerController : PawnController
 {
-	[Net, Local] public float RandomStep { get; set; }
-
 	private static float StudToInch => 11f;
 	private float jumpStrength => 50f * StudToInch;
 	private float speed => 16f * StudToInch;
@@ -47,10 +45,8 @@ public partial class PlayerController : PawnController
 			{
 				Velocity += Vector3.Up * jumpStrength;
 
-				using ( Prediction.Off() )
-				{
-					RandomStep = Rand.Float( 0.2f, 3.2f );
-				}
+				if ( Host.IsServer
+					&& Pawn is Player pawn ) pawn.Experience++;
 			}
 		}
 
@@ -63,7 +59,7 @@ public partial class PlayerController : PawnController
 			.IncludeClientside()
 			.Ignore( Pawn );
 		helper.TryUnstuck();
-		helper.TryMoveWithStep( Time.Delta, RandomStep * StudToInch );
+		helper.TryMoveWithStep( Time.Delta, 2f * StudToInch );
 
 		Position = helper.Position;
 		Velocity = helper.Velocity;
