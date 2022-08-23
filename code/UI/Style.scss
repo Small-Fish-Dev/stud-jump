@@ -40,3 +40,32 @@
         text-shadow: 4px 4px 5px black;
     }
 }
+
+ExperienceBar {
+    background-color: red;
+    top: 30px;
+    height: 30px;
+    width: 70%;
+    border-radius: 50px;
+
+    .bar {
+        background-color: red;
+        background-position: left;
+        background-size: 100px 100%;
+        border-radius: 50px 0px 0px 50px;
+        width: 10%;
+        height: 100%;
+        z-index: 4;
+    }
+}
+
+StarParticle {
+    position: absolute;
+    background-image: url(ui/star_particle.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    opacity: 1;
+    height: 40px;
+    aspect-ratio: 1;
+    z-index: 6;
+}

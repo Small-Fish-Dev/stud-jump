@@ -35,8 +35,8 @@ class Nameplate : WorldPanel
 			return;
 		}
 
-		var transform = ply.GetAttachment( "hat" ) ?? ply.Transform;
-		transform.Position += Vector3.Up * 10.0f;
+		var transform = ply.Transform;
+		transform.Position += Vector3.Up * 84f;
 		transform.Rotation = Rotation.LookAt( -CurrentView.Rotation.Forward );
 
 		Transform = transform;

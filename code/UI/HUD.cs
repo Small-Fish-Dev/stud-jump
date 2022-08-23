@@ -5,18 +5,23 @@ class HUD : RootPanel
 	public static HUD Instance { get; set; }
 
 	[Event.Hotload]
-	[Event( "start" )]
+	[Event("start")]
 	private static void createHUD()
 	{
 		if ( Host.IsServer ) return;
 
-		Instance?.Delete( true );
+		if ( Instance != null )
+			Instance.Delete();
+
 		Instance = new HUD();
 	}
 
 	public HUD()
 	{
-		Instance = this;
-		StyleSheet.Load( "/UI/Style.scss" );
+		SetTemplate( "/ui/Layout.html" );
+		Style.Display = DisplayMode.Flex;
+		Style.FlexDirection = FlexDirection.Column;
+		Style.JustifyContent = Justify.FlexStart;
+		Style.AlignItems = Align.Center;
 	}
 }
