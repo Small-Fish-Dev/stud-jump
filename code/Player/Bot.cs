@@ -28,7 +28,7 @@ public class MyCustomBot : Bot
 
 		builder.SetButton( InputButton.Jump, false );
 
-		if ( Noise.Perlin( (lifeTime + randSeed) * 10f ) * 2.2f - 0.5f >= ( Crazyness / 20f * 1.8f ))
+		if ( Noise.Perlin( lifeTime * 10f, randSeed, randSeed ) * 2.2f - 0.5f >= ( Crazyness / 20f * 1.8f ))
 		{
 
 			var startPos = Client.Pawn.Position + Vector3.Up * 2.5f * Game.StudToInch;
@@ -54,7 +54,7 @@ public class MyCustomBot : Bot
 	public override void Tick()
 	{
 
-		Client.Pawn.Rotation = Rotation.FromYaw( ( Noise.Perlin( ( lifeTime + randSeed ) * 10f * Crazyness / 2f ) - 0.5f ) * 40f * Crazyness );
+		Client.Pawn.Rotation = Rotation.FromYaw( ( Noise.Perlin( lifeTime * 10f * Crazyness / 2f, randSeed, randSeed ) - 0.5f ) * 40f * Crazyness );
 
 	}
 }

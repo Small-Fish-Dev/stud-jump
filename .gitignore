@@ -5,19 +5,6 @@ code/.vs/*
 
 *.csproj
 *.sln
-*.vmdl_c
-*.vtex_c
-*.vmat_c
 *.bin
-*.vpk
-tools_asset_info.bin
-*.bin
-*.bin
-tools_asset_info.bin
-models/dumpster.vmdl_c
-*.vtex_c
 tools_asset_info.bin
 *_bakeresourcecache
-*.vpcf_c
-*.los
-*.assbin
