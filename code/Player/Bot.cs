@@ -27,26 +27,31 @@ public class MyCustomBot : Bot
 	{
 
 		builder.SetButton( InputButton.Jump, false );
+		builder.InputDirection = Client.Pawn.Rotation.Forward;
 
-		if ( Noise.Perlin( lifeTime * 10f, randSeed, randSeed ) * 2.2f - 0.5f >= ( Crazyness / 20f * 1.8f ))
+		if ( Client.Pawn.GroundEntity != null )
 		{
 
-			var startPos = Client.Pawn.Position + Vector3.Up * 2.5f * Game.StudToInch;
-			var endPos = startPos + Client.Pawn.Rotation.Forward * 32f;
-			var wallTrace = Trace.Ray( startPos, endPos )
-				.Size( Game.StudToInch / 2f )
-				.Run();
-
-			if ( wallTrace.Hit )
+			if ( Noise.Perlin( lifeTime * 10f, randSeed, randSeed ) * 2.2f - 0.5f >= (Crazyness / 20f * 1.8f) )
 			{
 
-				builder.SetButton( InputButton.Jump, true );
+				var startPos = Client.Pawn.Position + Vector3.Up * 2.5f * Game.StudToInch;
+				var endPos = startPos + Client.Pawn.Rotation.Forward * 32f;
+				var wallTrace = Trace.Ray( startPos, endPos )
+					.Size( Game.StudToInch / 2f )
+					.Ignore( Client.Pawn )
+					.Run();
+
+				if ( wallTrace.Hit )
+				{
+
+					builder.SetButton( InputButton.Jump, true );
+
+				}
 
 			}
 
 		}
-		
-		builder.InputDirection = Client.Pawn.Rotation.Forward;
 
 	}
 

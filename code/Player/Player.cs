@@ -55,6 +55,15 @@ public partial class Player : AnimatedEntity
 		
 		if ( Host.IsServer )
 			UpdateEyePosition();
+
+		if ( Position.z <= Game.StudToInch * -4 )
+		{
+
+			Velocity = Vector3.Zero;
+			Position = CheckpointReached.Position;
+
+		}
+
 	}
 
 	public override void FrameSimulate( Client cl )
