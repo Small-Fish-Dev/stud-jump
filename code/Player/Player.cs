@@ -61,6 +61,7 @@ public partial class Player : AnimatedEntity
 
 			Velocity = Vector3.Zero;
 			Position = CheckpointReached.Position;
+			ResetInterpolation();
 
 		}
 
