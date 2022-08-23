@@ -95,14 +95,15 @@ public partial class Player : AnimatedEntity
 
 		timeSinceLastFootstep = 0;
 
-		var tr = Trace.Ray( pos, pos + Vector3.Down * 20 )
+		var tr = Trace.Ray( pos, pos + Vector3.Down * 20f )
 			.Radius( 1 )
 			.Ignore( this )
+			.IncludeClientside()
 			.Run();
 
 		if ( !tr.Hit ) return;
 
-		volume *= Velocity.WithZ( 0 ).Length.LerpInverse( 0.0f, 200.0f ) * 0.5f;
+		volume *= Velocity.WithZ( 0 ).Length.LerpInverse( 0.0f, 200.0f );
 		tr.Surface.DoFootstep( this, tr, foot, 1f );
 	}
 }
