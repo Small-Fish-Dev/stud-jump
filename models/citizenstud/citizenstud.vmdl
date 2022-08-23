@@ -184,19 +184,6 @@
 							{
 								_class = "RenderMeshFile"
 								name = "Hands_LOD0"
-								children = 
-								[
-									{
-										_class = "RemoveBoneAndChildren"
-										bone_names = 
-										[
-											"arm_lower_L",
-											"arm_lower_R",
-											"leg_lower_L",
-											"leg_lower_R",
-										]
-									},
-								]
 								filename = "models/citizen/citizen.fbx"
 								import_translation = [ 0.0, 0.0, 0.0 ]
 								import_rotation = [ 0.0, 0.0, 0.0 ]
@@ -217,19 +204,6 @@
 							{
 								_class = "RenderMeshFile"
 								name = "Hands_LOD1"
-								children = 
-								[
-									{
-										_class = "RemoveBoneAndChildren"
-										bone_names = 
-										[
-											"arm_lower_L",
-											"arm_lower_R",
-											"leg_lower_L",
-											"leg_lower_R",
-										]
-									},
-								]
 								filename = "models/citizen/citizen_lod1.fbx"
 								import_translation = [ 0.0, 0.0, 0.0 ]
 								import_rotation = [ 0.0, 0.0, 0.0 ]
@@ -250,19 +224,6 @@
 							{
 								_class = "RenderMeshFile"
 								name = "Hands_LOD2"
-								children = 
-								[
-									{
-										_class = "RemoveBoneAndChildren"
-										bone_names = 
-										[
-											"arm_lower_L",
-											"arm_lower_R",
-											"leg_lower_L",
-											"leg_lower_R",
-										]
-									},
-								]
 								filename = "models/citizen/citizen_lod2.fbx"
 								import_translation = [ 0.0, 0.0, 0.0 ]
 								import_rotation = [ 0.0, 0.0, 0.0 ]
@@ -283,47 +244,6 @@
 							{
 								_class = "RenderMeshFile"
 								name = "Hands_LOD3"
-								children = 
-								[
-									{
-										_class = "RemoveBoneAndChildren"
-										bone_names = 
-										[
-											"arm_lower_L",
-											"arm_lower_R",
-											"leg_lower_L",
-											"leg_lower_R",
-										]
-									},
-								]
-								filename = "models/citizen/citizen_lod3.fbx"
-								import_translation = [ 0.0, 0.0, 0.0 ]
-								import_rotation = [ 0.0, 0.0, 0.0 ]
-								import_scale = 1.0
-								align_origin_x_type = "None"
-								align_origin_y_type = "None"
-								align_origin_z_type = "None"
-								parent_bone = ""
-								import_filter = 
-								{
-									exclude_by_default = true
-									exception_list = 
-									[
-										"CitizenHands_LOD3",
-									]
-								}
-							},
-							{
-								_class = "RenderMeshFile"
-								name = "Hands_LOD4"
-								children = 
-								[
-									{
-										_class = "Prefab"
-										target_file = "models/citizen/prefabs/removeboneandchildren_lod4.vmdl_prefab"
-									},
-								]
-								disabled = true
 								filename = "models/citizen/citizen_lod3.fbx"
 								import_translation = [ 0.0, 0.0, 0.0 ]
 								import_rotation = [ 0.0, 0.0, 0.0 ]
@@ -518,19 +438,6 @@
 							{
 								_class = "RenderMeshFile"
 								name = "Feet_LOD0"
-								children = 
-								[
-									{
-										_class = "RemoveBoneAndChildren"
-										bone_names = 
-										[
-											"arm_lower_L",
-											"arm_lower_R",
-											"leg_lower_L",
-											"leg_lower_R",
-										]
-									},
-								]
 								filename = "models/citizen/citizen.fbx"
 								import_translation = [ 0.0, 0.0, 0.0 ]
 								import_rotation = [ 0.0, 0.0, 0.0 ]
@@ -551,19 +458,6 @@
 							{
 								_class = "RenderMeshFile"
 								name = "Feet_LOD1"
-								children = 
-								[
-									{
-										_class = "RemoveBoneAndChildren"
-										bone_names = 
-										[
-											"arm_lower_L",
-											"arm_lower_R",
-											"leg_lower_L",
-											"leg_lower_R",
-										]
-									},
-								]
 								filename = "models/citizen/citizen_lod1.fbx"
 								import_translation = [ 0.0, 0.0, 0.0 ]
 								import_rotation = [ 0.0, 0.0, 0.0 ]
@@ -584,19 +478,6 @@
 							{
 								_class = "RenderMeshFile"
 								name = "Feet_LOD2"
-								children = 
-								[
-									{
-										_class = "RemoveBoneAndChildren"
-										bone_names = 
-										[
-											"arm_lower_L",
-											"arm_lower_R",
-											"leg_lower_L",
-											"leg_lower_R",
-										]
-									},
-								]
 								filename = "models/citizen/citizen_lod2.fbx"
 								import_translation = [ 0.0, 0.0, 0.0 ]
 								import_rotation = [ 0.0, 0.0, 0.0 ]
@@ -617,47 +498,6 @@
 							{
 								_class = "RenderMeshFile"
 								name = "Feet_LOD3"
-								children = 
-								[
-									{
-										_class = "RemoveBoneAndChildren"
-										bone_names = 
-										[
-											"arm_lower_L",
-											"arm_lower_R",
-											"leg_lower_L",
-											"leg_lower_R",
-										]
-									},
-								]
-								filename = "models/citizen/citizen_lod3.fbx"
-								import_translation = [ 0.0, 0.0, 0.0 ]
-								import_rotation = [ 0.0, 0.0, 0.0 ]
-								import_scale = 1.0
-								align_origin_x_type = "None"
-								align_origin_y_type = "None"
-								align_origin_z_type = "None"
-								parent_bone = ""
-								import_filter = 
-								{
-									exclude_by_default = true
-									exception_list = 
-									[
-										"CitizenFeet_LOD3",
-									]
-								}
-							},
-							{
-								_class = "RenderMeshFile"
-								name = "Feet_LOD4"
-								children = 
-								[
-									{
-										_class = "Prefab"
-										target_file = "models/citizen/prefabs/removeboneandchildren_lod4.vmdl_prefab"
-									},
-								]
-								disabled = true
 								filename = "models/citizen/citizen_lod3.fbx"
 								import_translation = [ 0.0, 0.0, 0.0 ]
 								import_rotation = [ 0.0, 0.0, 0.0 ]
@@ -862,7 +702,7 @@
 					{
 						_class = "LODGroup"
 						note = "LOD2 is when the head switches to a lower-poly version without morphs."
-						switch_threshold = 10.0
+						switch_threshold = 20.0
 						meshes = 
 						[
 							"Head_LOD2",
@@ -874,7 +714,7 @@
 					},
 					{
 						_class = "LODGroup"
-						switch_threshold = 20.0
+						switch_threshold = 40.0
 						meshes = 
 						[
 							"Head_LOD3",
@@ -882,18 +722,6 @@
 							"Hands_LOD3",
 							"Legs_LOD3",
 							"Feet_LOD3",
-						]
-					},
-					{
-						_class = "LODGroup"
-						switch_threshold = 30.0
-						meshes = 
-						[
-							"Head_LOD4",
-							"Torso_LOD4",
-							"Hands_LOD4",
-							"Legs_LOD4",
-							"Feet_LOD4",
 						]
 					},
 				]
