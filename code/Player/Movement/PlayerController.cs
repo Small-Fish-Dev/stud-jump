@@ -2,7 +2,7 @@
 
 public partial class PlayerController : PawnController
 {
-	private static float studToInch => 11.023622f;
+	private static float studToInch => 11f;
 	private float jumpStrength => 50f * studToInch;
 	private float speed => 16f * studToInch;
 

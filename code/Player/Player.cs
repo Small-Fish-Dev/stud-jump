@@ -65,8 +65,6 @@ public partial class Player : AnimatedEntity
 
 	public override void BuildInput( InputBuilder input )
 	{
-		base.BuildInput( input );
-
 		input.ViewAngles += input.AnalogLook;
 		input.ViewAngles.pitch = input.ViewAngles.pitch.Clamp( -89, 89 );
 		input.ViewAngles.roll = 0;
