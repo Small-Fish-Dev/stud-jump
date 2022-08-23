@@ -25,7 +25,7 @@ partial class Player
 		{
 			Host.AssertServer();
 
-			Event.Run( "onExperience", value - experience );
+			Event.Run( "onExperience", this, value - experience );
 			experience = value;
 			
 			if ( previousRank < RankIndex )
