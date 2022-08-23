@@ -66,7 +66,7 @@ VS
 PS
 {
     #include "common/pixel.hlsl"
-    
+    	BoolAttribute( SupportsMappingDimensions, true );
 	CreateInputTexture2D( Tint, Srgb, 8, "", "_color", "Settings", Default3( 1.0, 1.0, 1.0 ) );
 	CreateTexture2D( g_tTint ) < Channel( RGB, Box( Tint ), Srgb ); Filter( MIN_MAG_LINEAR_MIP_POINT ); OutputFormat( BC7 ); SrgbRead( true ); UiGroup( "Material" ); >;
 

@@ -4,15 +4,15 @@ Layer0
 {
 	shader "studshader.vfx"
 
-	//---- Rendering ----
-	F_RENDER_BACKFACES 1
-
 	//---- Color ----
 	g_flModelTintAmount "1.000"
 	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
 
 	//---- Fade ----
 	g_flFadeExponent "1.000"
+
+	//---- Fog ----
+	g_bFogEnabled "1"
 
 	//---- Lighting ----
 	g_flDirectionalLightmapMinZ "0.050"
@@ -25,7 +25,7 @@ Layer0
 	TextureColor "materials/studs.png"
 	TextureMetalness "materials/default/default_metal.tga"
 	TextureNormal "materials/default/default_normal.tga"
-	TextureRoughness "materials/default/default_rough.tga"
+	TextureRoughness "[1.000000 1.000000 1.000000 0.000000]"
 	TextureTintMask "materials/default/default_mask.tga"
 
 	//---- Settings ----
@@ -37,6 +37,12 @@ Layer0
 	g_vTexCoordOffset "[0.000 0.000]"
 	g_vTexCoordScale "[1.000 1.000]"
 	g_vTexCoordScrollSpeed "[0.000 0.000]"
+
+	SystemAttributes
+	{
+		WorldMappingWidth "22"
+		WorldMappingHeight "22"
+	}
 
 	DynamicParams
 	{
