@@ -18,6 +18,6 @@ class HUD : RootPanel
 
 	public HUD()
 	{
-		SetTemplate( "/ui/Layout.html" );
+		SetTemplate( "/UI/Layout.html" );
 	}
 }

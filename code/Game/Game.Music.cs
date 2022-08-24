@@ -3,27 +3,28 @@
 public partial class Game
 {
 
-	Sound? backgroundMusic;
+	static Sound backgroundMusic;
+	public static bool MusicPlaying = true;
 
-	[Event.Tick.Server]
+	[Event.Tick.Client]
 	public void LoadMusic()
 	{
 
-		if ( backgroundMusic == null )
+		if ( MusicPlaying )
 		{
 
-			backgroundMusic = Sound.FromScreen( "goumi-remix" );
-
-		}
-		else
-		{
-
-			if ( backgroundMusic.Value.Finished )
+			if ( backgroundMusic.Finished )
 			{
 
 				backgroundMusic = Sound.FromScreen( "goumi-remix" ); // You cannot stop it.
 
 			}
+
+		}
+		else
+		{
+
+			backgroundMusic.Stop();
 
 		}
 
