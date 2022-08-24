@@ -188,4 +188,54 @@ public partial class Player : AnimatedEntity
 		else
 			inventory.Active = null;
 	}
+
+	[ClientRpc]
+	public static void sendChat( byte[] data )
+	{
+		List<(string text, Color col)> result = new();
+
+		using ( var stream = new MemoryStream( data ) )
+		{
+			using ( var reader = new BinaryReader( stream ) )
+			{
+				var count = reader.ReadInt16();
+
+				for ( int i = 0; i < count; i++ )
+					result.Add( (reader.ReadString(), reader.ReadColor()) );
+			}
+		}
+
+		Chat.Instance?.Append( result );
+	}
+
+	public static void SendChat( To target, List<(string text, Color col)> message )
+	{
+		using ( var stream = new MemoryStream() )
+		{
+			using ( var writer = new BinaryWriter( stream ) )
+			{
+				writer.Write( (short)message.Count );
+
+				for ( int i = 0; i < message.Count; i++ )
+				{
+					writer.Write( message[i].text );
+					writer.Write( message[i].col );
+				}
+			}
+
+			sendChat( target, stream.ToArray() );
+		}
+	}
+
+	[ConCmd.Server("say")]
+	public static void Say( string text )
+	{
+		if ( ConsoleSystem.Caller.Pawn is not Player pawn ) return;
+
+		Player.SendChat( To.Everyone, new()
+		{
+			( $"{pawn.CurrentRank.Name.Substring(0, 5)} {pawn.Client.Name}: ", pawn.CurrentRank.Color ),
+			( $"{text}", Color.White ),
+		} );
+	}
 }

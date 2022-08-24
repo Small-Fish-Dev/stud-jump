@@ -59,6 +59,11 @@ ExperienceBar {
     width: 40%;
     border-radius: 50px;
     border: 5px solid rgb( 40, 40, 60 );
+    color: white;
+    font-family: 'Comic Sans MS';
+    font-size: 22px;
+    text-stroke: 4px black;
+    text-shadow: 2px 2px 4px black;
 
     .bar {
         position: absolute;
@@ -83,11 +88,6 @@ ExperienceBar {
 
     .currentRank {
         position: absolute;
-        color: white;
-        font-family: 'Comic Sans MS';
-        font-size: 22px;
-        text-stroke: 2px black;
-        text-shadow: 2px 2px 4px black;
         text-align: left;
         top: 30px;
     }
@@ -95,11 +95,6 @@ ExperienceBar {
     .nextRank {
         position: absolute;
         left: 100%;
-        color: white;
-        font-family: 'Comic Sans MS';
-        font-size: 22px;
-        text-stroke: 2px black;
-        text-shadow: 2px 2px 4px black;
         text-align: right;
         transform: translateX( -100% );
         top: 30px;
@@ -121,10 +116,60 @@ MuteButton {
     position: absolute;
     right: 15px;
     top: 15px;
-    height: 8%;
+    height: 32px;
     aspect-ratio: 1;
     background-size: contain;
     background-image: url(ui/muted.png);
     background-image: url(ui/unmuted.png);
     cursor: pointer;
+}
+
+Chat {
+    position: absolute;
+    width: 500px;
+    height: 350px;
+    left: 20px;
+    top: 20px;
+    background-color: rgba(black, 0.8);
+    border-radius: 10px;
+    font-family: "Comic Sans MS";
+    font-size: 18px;
+    font-weight: bold;
+    text-stroke: 3px black;
+    text-shadow: 2px 2px 2px black;
+    transition: opacity 0.5s ease-in;
+    box-shadow: 0px 0px 4px 4px rgba(black, 0.2);
+
+    .container {
+        position: absolute;
+        top: 10px;
+        width: 480px;
+        height: 280px;
+        left: 10px;
+        flex-direction: column;
+        overflow: scroll;
+        justify-content: flex-end;
+
+        .textContainer {
+            flex-wrap: wrap;
+            flex-direction: row;
+            flex-shrink: 0;
+            flex-grow: 0;
+            padding-bottom: 5px;
+        }
+    }
+
+    .entry {
+        position: absolute;
+        width: 480px;
+        bottom: 10px;
+        left: 10px;
+        border-radius: 4px;
+        border-top: 2px rgb(80, 80, 80);
+        border-left: 1px rgb(80, 80, 80);
+        border-right: 1px rgb(80, 80, 80);
+        background-color: rgb(40, 40, 40);
+        color: rgb(200, 200, 200);
+        padding: 8px;
+    }
 }

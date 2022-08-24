@@ -6,6 +6,7 @@ public class ExperienceBar : Panel
 	Panel bar;
 	Label currentRank;
 	Label nextRank;
+	float lerpValue;
 
 	public ExperienceBar()
 	{
@@ -26,7 +27,9 @@ public class ExperienceBar : Panel
 		string darkColor = new Color( pawn.CurrentRank.Color.r - 0.3f, pawn.CurrentRank.Color.g - 0.3f, pawn.CurrentRank.Color.b - 0.3f ).Hex;
 
 		bar.Style.Set( "background", $"linear-gradient( {rankColor} 0%, {darkColor} 60% )" );
-		bar.Style.Width = Length.Percent( pawn.ExperienceProgress * 98f + 2f );
+
+		lerpValue = MathX.LerpTo( lerpValue, pawn.ExperienceProgress * 98f + 2f, 10f * Time.Delta );
+		bar.Style.Width = Length.Percent( lerpValue );
 
 		currentRank.Text = pawn.CurrentRank.Name;
 		nextRank.Text = $"Next: {pawn.NextRank.Name.Split( ' ' )[0]}";
