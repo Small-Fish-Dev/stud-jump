@@ -9,7 +9,7 @@ public partial class Checkpoint : ModelEntity
 	[Property]
 	public int Level { get; set; } = 0;
 
-	public Checkpoint() {}
+	public Checkpoint() { }
 
 	public Checkpoint( int level )
 	{
@@ -36,7 +36,7 @@ public partial class Checkpoint : ModelEntity
 
 		if ( other is not Player player ) return;
 
-		if ( player.CheckpointReached == null || player.CheckpointReached.Level < Level )
+		if ( IsServer && (player.CheckpointReached == null || player.CheckpointReached.Level < Level) )
 		{
 
 			player.CheckpointReached = this;
@@ -73,7 +73,7 @@ public partial class Checkpoint : ModelEntity
 
 		animationSpeed *= 1f + Time.Delta * 8f;
 
-		animationModel.Scale = 1f + ( Time.Now - animationStart ) * 2.5f - animationSpeed;
+		animationModel.Scale = 1f + (Time.Now - animationStart) * 2.5f - animationSpeed;
 		animationModel.RenderColor = new Color( 1f, 1f, 1f, 1f - (Time.Now - animationStart) );
 
 		if ( animationModel.Scale < 0.9f )

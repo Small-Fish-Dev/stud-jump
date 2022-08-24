@@ -19,9 +19,5 @@ class HUD : RootPanel
 	public HUD()
 	{
 		SetTemplate( "/ui/Layout.html" );
-		Style.Display = DisplayMode.Flex;
-		Style.FlexDirection = FlexDirection.Column;
-		Style.JustifyContent = Justify.FlexStart;
-		Style.AlignItems = Align.Center;
 	}
 }

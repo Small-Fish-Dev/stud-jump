@@ -1,4 +1,12 @@
-﻿.heightCount {
+﻿hud {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    pointer-events: none;
+}
+
+.heightCount {
     width: 100%;
     height: 100%;
     color: white;

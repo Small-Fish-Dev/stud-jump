@@ -1,16 +1,25 @@
-﻿namespace Stud;
+﻿using Sandbox;
+
+namespace Stud;
 
 public partial class Player : AnimatedEntity
 {
 	[Net, Predicted] public PawnController Controller { get; set; }
 	[Net, Predicted] public PawnAnimator Animator { get; set; }
-	
+
+	public IBaseInventory Inventory { get; protected set; }
+	public HashSet<string> OwnedItems { get; set; } = new();
+
 	public Checkpoint CheckpointReached { get; set; }
 
 	public ClothingContainer Clothing = new();
 
 	public override void Spawn()
 	{
+		Inventory ??= new BaseInventory( this );
+		Inventory.Add( new CocaColaEspuma() );
+		Inventory.Add( new JumpCoil() );
+
 		Controller ??= new PlayerController();
 		Animator ??= new PlayerAnimator();
 
@@ -90,7 +99,7 @@ public partial class Player : AnimatedEntity
 	public override void Simulate( Client cl )
 	{
 		Controller?.Simulate( cl, this, Animator );
-		
+
 		if ( Host.IsServer )
 			UpdateEyePosition();
 
@@ -127,9 +136,21 @@ public partial class Player : AnimatedEntity
 
 	public override void BuildInput( InputBuilder input )
 	{
-		input.ViewAngles += input.AnalogLook;
-		input.ViewAngles.pitch = input.ViewAngles.pitch.Clamp( -89, 89 );
-		input.ViewAngles.roll = 0;
+		if ( input.Down( InputButton.SecondaryAttack ) )
+		{
+			input.ViewAngles += input.AnalogLook;
+			input.ViewAngles.pitch = input.ViewAngles.pitch.Clamp( -89, 89 );
+			input.ViewAngles.roll = 0;
+		}
+
+		if (input.Pressed(InputButton.SecondaryAttack))
+		{
+			MouseCapture.CaptureMouse();
+		}
+		else if (input.Released(InputButton.SecondaryAttack))
+		{
+			MouseCapture.ReleaseMouse();
+		}
 
 		input.InputDirection = input.AnalogMove;
 	}
@@ -156,5 +177,24 @@ public partial class Player : AnimatedEntity
 
 		volume *= Velocity.WithZ( 0 ).Length.LerpInverse( 0.0f, 200.0f );
 		tr.Surface.DoFootstep( this, tr, foot, 1f );
+	}
+
+	[ClientRpc]
+	public void BuyShit( BaseItem item )
+	{
+		Log.Info( $"TODO: Buy this {item.Name} for {item.Cost}!" );
+	}
+
+	[ConCmd.Server( "stud_inv", Help = "-1 to get rid of your items" )]
+	public void GetInventorySlot( int number )
+	{
+		if ( ConsoleSystem.Caller.Pawn is not Player player ) return;
+
+		if ( player.Inventory is not BaseInventory inventory ) return;
+
+		if ( number > 0 )
+			inventory.SetActiveSlot( number );
+		else
+			inventory.Active = null;
 	}
 }

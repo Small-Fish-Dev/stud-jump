@@ -2,8 +2,10 @@
 
 public partial class PlayerController : PawnController
 {
+	[Net] private float jumpBoost { get; set; }
+
 	private static float StudToInch => 11f;
-	private float jumpStrength => 50f * StudToInch;
+	private float jumpStrength => 50f * StudToInch + jumpBoost;
 	private float speed => 16f * StudToInch;
 
 	private Vector3 mins = new Vector3( -16f, -16f, 0f );
@@ -11,11 +13,16 @@ public partial class PlayerController : PawnController
 
 	public BBox CollisionBox => new( mins, maxs );
 	public Vector3 LastMoveDir { get; set; } = Vector3.Forward;
-	
+
 	float gravity => 196.2f * StudToInch;
-	
+
 	public override void Simulate()
 	{
+		if ( Host.IsServer )
+		{
+			jumpBoost = (((Pawn as Player).Inventory as BaseInventory).Active as BaseItem)?.JumpBoost ?? 0;
+		}
+
 		EyeRotation = Rotation.Lerp( EyeRotation, Input.Rotation, Time.Delta );
 		EyeLocalPosition = Vector3.Up * (CollisionBox.Maxs.z - 8);
 
@@ -26,7 +33,7 @@ public partial class PlayerController : PawnController
 
 		var inSpeed = wishVelocity.Length.Clamp( 0, 1 );
 		var rot = Rotation.FromYaw( Input.Rotation.Yaw() );
-		wishVelocity = wishVelocity.Normal 
+		wishVelocity = wishVelocity.Normal
 			* inSpeed
 			* speed
 			* rot;
