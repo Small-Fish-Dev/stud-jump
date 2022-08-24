@@ -41,6 +41,9 @@ public partial class Checkpoint : ModelEntity
 
 			player.CheckpointReached = this;
 			player.Experience += (int)Math.Pow( Level, 2.5f );
+
+			if ( player.Client.IsBot ) return;
+
 			CheckpointAnimation( To.Single( player.Client ) );
 
 			GameServices.SubmitScore( player.Client.PlayerId, Level );

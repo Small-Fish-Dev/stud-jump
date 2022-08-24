@@ -1,5 +1,5 @@
 ﻿namespace Stud;
-public class MyCustomBot : Bot
+public class StudBot : Bot
 {
 	[ConCmd.Admin( "bot_custom", Help = "Spawn my custom bot." )]
 	internal static void SpawnCustomBot( float crazy = 1f )
@@ -7,7 +7,7 @@ public class MyCustomBot : Bot
 		Host.AssertServer();
 
 		// Create an instance of your custom bot.
-		var bot = new MyCustomBot( crazy );
+		var bot = new StudBot( crazy );
 
 	}
 
@@ -15,7 +15,7 @@ public class MyCustomBot : Bot
 	private TimeSince lifeTime = 0f;
 	private float randSeed;
 
-	public MyCustomBot( float crazy )
+	public StudBot( float crazy )
 	{
 
 		Crazyness = Math.Min( crazy, 10 );

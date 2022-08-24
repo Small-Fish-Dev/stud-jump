@@ -22,6 +22,13 @@ partial class Game : GameBase
 		Instance = this;
 		Event.Run( "start" );
 		GenerateLevel();
+
+		for ( int i = 0; i < Rand.Int( 12 ); i++ )
+		{
+
+			new StudBot( Rand.Float( 8 ) + 2f );
+
+		}
 	}
 
 	public override void ClientJoined( Client cl )
