@@ -56,7 +56,8 @@ public partial class Checkpoint : ModelEntity
 	{
 
 		animationModel = new ModelEntity();
-		animationModel.SetModel( "models/checkpoint.vmdl" );
+		animationModel.SetModel( Model.ResourcePath );
+		animationModel.SetMaterialOverride( Material.Load( "materials/dev/primary_white_emissive.vmat" ) );
 		animationModel.Position = Position;
 		animationModel.Rotation = Rotation;
 
