@@ -4,32 +4,33 @@ public class ExperienceBar : Panel
 {
 
 	Panel bar;
+	Label currentRank;
+	Label nextRank;
 
 	public ExperienceBar()
 	{
 
 		bar = Add.Panel( "bar" );
-
-		var firstColor = "#2f3330";
-		var secondColor = "#aed6b8";
-		var stops = 4f;
-
-		var percent = 100f / stops;
-		var result = $"{firstColor} 0%, {firstColor} {percent}%";
-
-		for ( int i = 1; i < stops; i++ )
-		{
-			var col = i % 2 == 0 ? firstColor : secondColor;
-			result += $", {col} {i * percent}%, {col} {(i + 1) * percent}%";
-		}
-
-		Style.Set( "background", $"linear-gradient({result})" );
-		Style.Dirty();
+		bar.Add.Panel( "grid" );
+		currentRank = Add.Label( "", "currentRank" );
+		nextRank = Add.Label( "", "nextRank" );
 
 	}
 
 	public override void Tick()
 	{
+
+		if ( Local.Pawn is not Player pawn ) return;
+
+		string rankColor = pawn.CurrentRank.Color.Hex;
+		string darkColor = new Color( pawn.CurrentRank.Color.r - 0.3f, pawn.CurrentRank.Color.g - 0.3f, pawn.CurrentRank.Color.b - 0.3f ).Hex;
+
+		bar.Style.Set( "background", $"linear-gradient( {rankColor} 0%, {darkColor} 60% )" );
+		bar.Style.Width = Length.Percent( pawn.ExperienceProgress * 98f + 2f );
+
+		currentRank.Text = pawn.CurrentRank.Name;
+		nextRank.Text = $"Next: {pawn.NextRank.Name.Split( ' ' )[0]}";
+
 	}
 
 }

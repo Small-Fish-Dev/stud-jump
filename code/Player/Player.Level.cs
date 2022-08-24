@@ -36,6 +36,7 @@ partial class Player
 		}
 	}
 
+
 	private int lastExperience = -1;
 	private int lastRank;
 	public int RankIndex
@@ -53,13 +54,6 @@ partial class Player
 		}
 	}
 	public Rank CurrentRank => Rank.All[RankIndex];
-
-	[Event.Tick.Client]
-	void clientTick()
-	{
-		var nextRank = Rank.All[Math.Min( RankIndex + 1, Rank.All.Length - 1 )];
-		DebugOverlay.ScreenText( $"Total EXP: {Experience}" );
-		DebugOverlay.ScreenText( $"EXP till next: {Experience - CurrentRank.Requirement} / {nextRank.Requirement} -> {nextRank.Name}", 1 );
-		DebugOverlay.ScreenText( $"Title: {CurrentRank.Name}", 2 );
-	}
+	public Rank NextRank => Rank.All[Math.Min( RankIndex + 1, Rank.All.Length - 1 )];
+	public float ExperienceProgress => (float)(Experience - CurrentRank.Requirement) / (float)NextRank.Requirement;
 }
