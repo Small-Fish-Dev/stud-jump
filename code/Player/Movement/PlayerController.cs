@@ -50,10 +50,17 @@ public partial class PlayerController : PawnController
 			// Jumping.
 			if ( Input.Down( InputButton.Jump ) )
 			{
-				Velocity += Vector3.Up * jumpStrength;
 
-				if ( Host.IsServer
-					&& Pawn is Player pawn ) pawn.Experience++;
+				if ( Pawn is not Player pawn ) return;
+
+				Velocity += Vector3.Up * ( jumpStrength + pawn.RankIndex * 30 );
+
+				if ( Host.IsServer )
+				{
+
+					pawn.Experience += (int)Math.Pow( pawn.RankIndex + 1, 2.5f );
+
+				}
 			}
 		}
 
