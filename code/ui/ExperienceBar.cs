@@ -31,6 +31,9 @@ public class ExperienceBar : Panel
 		currentRank.Text = pawn.CurrentRank.Name;
 		nextRank.Text = $"Next: {pawn.NextRank.Name.Split( ' ' )[0]}";
 
+		currentRank.Style.FontColor = new Color( pawn.CurrentRank.Color.r + 0.5f, pawn.CurrentRank.Color.g + 0.5f, pawn.CurrentRank.Color.b + 0.5f );
+		nextRank.Style.FontColor = new Color( pawn.NextRank.Color.r + 0.5f, pawn.NextRank.Color.g + 0.5f, pawn.NextRank.Color.b + 0.5f );
+
 	}
 
 }

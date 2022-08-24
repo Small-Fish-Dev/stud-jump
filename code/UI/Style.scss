@@ -54,9 +54,9 @@ ExperienceBar {
     background-image: url(ui/line.png);
     background-size: 60px;
     background-color: rgb( 40, 40, 60, 0.8 );
-    top: 30px;
-    height: 30px;
-    width: 60%;
+    top: 20px;
+    height: 25px;
+    width: 40%;
     border-radius: 50px;
     border: 5px solid rgb( 40, 40, 60 );
 
@@ -85,9 +85,9 @@ ExperienceBar {
         position: absolute;
         color: white;
         font-family: 'Comic Sans MS';
-        font-size: 28px;
-        text-stroke: 6px black;
-        text-shadow: 4px 4px 10px black;
+        font-size: 22px;
+        text-stroke: 2px black;
+        text-shadow: 2px 2px 4px black;
         text-align: left;
         top: 30px;
     }
@@ -97,9 +97,9 @@ ExperienceBar {
         left: 100%;
         color: white;
         font-family: 'Comic Sans MS';
-        font-size: 28px;
-        text-stroke: 6px black;
-        text-shadow: 4px 4px 10px black;
+        font-size: 20px;
+        text-stroke: 2px black;
+        text-shadow: 2px 2px 4px black;
         text-align: right;
         transform: translateX( -100% );
         top: 30px;
@@ -124,5 +124,7 @@ MuteButton {
     height: 8%;
     aspect-ratio: 1;
     background-size: contain;
-    pointer-events: all;
+    background-image: url(ui/muted.png);
+    background-image: url(ui/unmuted.png);
+    cursor: pointer;
 }
