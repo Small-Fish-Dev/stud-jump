@@ -43,6 +43,8 @@ public partial class Checkpoint : ModelEntity
 			player.Experience += (int)Math.Pow( Level, 2.5f );
 			CheckpointAnimation( To.Single( player.Client ) );
 
+			GameServices.SubmitScore( player.Client.PlayerId, Level );
+
 		}
 
 	}
