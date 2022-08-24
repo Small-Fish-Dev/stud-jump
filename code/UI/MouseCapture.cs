@@ -1,32 +1,18 @@
 ﻿namespace Stud;
 
-[Library("mousecapture")]
 public partial class MouseCapture : Panel
 {
-	public static MouseCapture Instance { get; set; }
-
 	public MouseCapture()
 	{
-		Instance = this;
 		Style.PointerEvents = PointerEvents.All;
 	}
 
-	[ClientRpc]
-	public static void CaptureMouse()
+	[Event.BuildInput]
+	private void buildInput( InputBuilder input )
 	{
-		if ( Instance is null )
-			return;
-
-		Instance.Style.PointerEvents = PointerEvents.None;
-	}
-
-	[ClientRpc]
-	public static void ReleaseMouse()
-	{
-		if ( Instance is null )
-			return;
-
-		Instance.Style.PointerEvents = PointerEvents.All;
+		Style.PointerEvents = input.Down( InputButton.SecondaryAttack ) 
+			? PointerEvents.None
+			: PointerEvents.All;
 	}
 }
 

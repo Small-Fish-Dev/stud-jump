@@ -12,7 +12,7 @@
   "RootNamespace": null,
   "Metadata": {
     "MaxPlayers": 64,
-    "MinPlayers": 16,
+    "MinPlayers": 1,
     "GameNetworkType": "Multiplayer",
     "MapSelect": "Hidden",
     "MapList": [

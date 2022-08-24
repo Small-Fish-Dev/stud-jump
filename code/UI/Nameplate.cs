@@ -1,6 +1,4 @@
-﻿using Sandbox;
-
-namespace Stud;
+﻿namespace Stud;
 
 class Nameplate : WorldPanel
 {

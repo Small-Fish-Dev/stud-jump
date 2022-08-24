@@ -143,15 +143,6 @@ public partial class Player : AnimatedEntity
 			input.ViewAngles.roll = 0;
 		}
 
-		if (input.Pressed(InputButton.SecondaryAttack))
-		{
-			MouseCapture.CaptureMouse();
-		}
-		else if (input.Released(InputButton.SecondaryAttack))
-		{
-			MouseCapture.ReleaseMouse();
-		}
-
 		input.InputDirection = input.AnalogMove;
 	}
 
