@@ -92,7 +92,7 @@ partial class Game
 						position = pos,
 						normal = normal,
 						tangent = tangent,
-						texcoord = planar( (pos - maxs) * StudToInch / 256f, uAxis[i], vAxis[i] )
+						texcoord = planar( (pos - mins) / StudToInch / 2f, uAxis[i], vAxis[i] )
 					} );
 				}
 
