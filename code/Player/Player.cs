@@ -1,9 +1,11 @@
-﻿using Sandbox;
+﻿using System.Text;
 
 namespace Stud;
 
 public partial class Player : AnimatedEntity
 {
+	public static readonly HashSet<string> BannedWords = new() { "simple", "complicated", "confusing" };
+
 	[Net, Predicted] public PawnController Controller { get; set; }
 	[Net, Predicted] public PawnAnimator Animator { get; set; }
 
@@ -227,10 +229,34 @@ public partial class Player : AnimatedEntity
 		}
 	}
 
-	[ConCmd.Server("say")]
+	[ConCmd.Server( "say" )]
 	public static void Say( string text )
 	{
 		if ( ConsoleSystem.Caller.Pawn is not Player pawn ) return;
+
+		var sb = new StringBuilder( text );
+		var i = 0;
+		while ( i < text.Length )
+		{
+			var j = i;
+			while ( j < text.Length && text[j] != ' ' )
+				j++;
+
+			if ( j != i )
+			{
+				if ( Rand.Int( 1 ) % 2 == 0 || BannedWords.Contains( text.Substring( i, j - i ) ) )
+				{
+					// 1984
+					for ( var k = i; k < j; k++ )
+						sb[k] = '#';
+				}
+
+				i = j;
+			}
+			else
+				i++;
+		}
+		text = $"{sb}";
 
 		Player.SendChat( To.Everyone, new()
 		{
