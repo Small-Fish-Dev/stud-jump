@@ -37,7 +37,12 @@ partial class Player
 			Event.Run( "onExperience", this, value - experience );
 			experience = value;
 
-			GameServices.UpdateLeaderboard( Client.PlayerId, experience, "Experience" );
+			if ( !Client.IsBot )
+			{
+
+				GameServices.UpdateLeaderboard( Client.PlayerId, experience, "Experience" );
+
+			}
 
 			if ( previousRank < RankIndex )
 			{
