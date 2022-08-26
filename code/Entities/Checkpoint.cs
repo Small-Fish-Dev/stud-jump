@@ -46,7 +46,7 @@ public partial class Checkpoint : ModelEntity
 
 			CheckpointAnimation( To.Single( player.Client ) );
 
-			GameServices.SubmitScore( player.Client.PlayerId, Level );
+			GameServices.UpdateLeaderboard( player.Client.PlayerId, Level, "Studs" );
 
 		}
 
