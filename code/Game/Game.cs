@@ -22,13 +22,6 @@ partial class Game : GameBase
 		Instance = this;
 		Event.Run( "start" );
 		GenerateLevel();
-
-		for ( int i = 0; i < Rand.Int( 12 ); i++ )
-		{
-
-			new StudBot( Rand.Float( 8 ) + 2f );
-
-		}
 	}
 
 	public override void ClientJoined( Client cl )
@@ -67,7 +60,19 @@ partial class Game : GameBase
 		Local.Hud = null;
 	}
 
-	public override void PostLevelLoaded() { }
+	public override void PostLevelLoaded()
+	{
+
+		if ( Host.IsClient ) return;
+
+		for ( int i = 0; i < Rand.Int( 12 ); i++ )
+		{
+
+			new StudBot( Rand.Float( 8 ) + 2f );
+
+		}
+
+	}
 
 	public override void BuildInput( InputBuilder input )
 	{
@@ -104,4 +109,42 @@ partial class Game : GameBase
 	{
 		base.RenderHud();
 	}
+	/*
+	[ConCmd.Server("movescores")]
+	public static async void ResetScores( int skip = 0 )
+	{
+
+		var leaderBoard = await GameServices.Leaderboard.Query("fish.stud_jump", null, "stud-jump", skip );
+
+		Log.Info( $"!!! Starting {leaderBoard.Entries.Count} entries skipping {skip}" );
+
+		for ( int i = 0; i < leaderBoard.Entries.Count; i++ )
+		{
+
+			LeaderboardResult.Entry entry = leaderBoard.Entries[i];
+
+			await GameServices.UpdateLeaderboard(entry.PlayerId, entry.Rating, "Studs");
+			Log.Info($"({i}) Set score of {entry.DisplayName} to {entry.Rating}");
+
+		}
+
+		ResetScores( skip + leaderBoard.Entries.Count );
+
+	}*/
+
+		/*[ServerCmd("set_score")]
+		public static async void ResetScores( string input )
+		{
+
+			long steamid = long.Parse(input);
+			var leaderBoard = await GameServices.Leaderboard.Query("fish.blubber_runner");
+			var entry = leaderBoard.Entries.Find(e => e.PlayerId == steamid);
+			
+
+			await GameServices.SubmitScore(steamid, 999);
+			Log.Info($" Reset score of {entry.DisplayName}");
+
+		}*/
+
+
 }

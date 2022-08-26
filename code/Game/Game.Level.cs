@@ -164,6 +164,7 @@ partial class Game
 					StyleSheet = HUD.Instance.StyleSheet
 				};
 				worldPanel.AddClass( "heightCount" );
+				worldPanel.SceneObject.RenderingEnabled = false;
 				var label = worldPanel.AddChild<Label>();
 				label.Text = $" {i * 0.5f} studs ";
 			}
