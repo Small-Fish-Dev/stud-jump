@@ -270,9 +270,15 @@ public partial class Player : AnimatedEntity
 	}
 
 	[ConCmd.Server( "say" )]
-	public static void Say( string text )
+	public static void SayCommand( string text )
 	{
 		if ( ConsoleSystem.Caller.Pawn is not Player pawn ) return;
+
+		pawn.Say( text );
+	}
+
+	public void Say( string text )
+	{
 
 		var sb = new StringBuilder( text );
 		var i = 0;
@@ -284,7 +290,7 @@ public partial class Player : AnimatedEntity
 
 			if ( j != i )
 			{
-				if ( Rand.Int( 1 ) % 2 == 0 || BannedWords.Contains( text.Substring( i, j - i ) ) )
+				if ( Rand.Int( 12 ) == 0 || BannedWords.Contains( text.Substring( i, j - i ) ) )
 				{
 					// 1984
 					for ( var k = i; k < j; k++ )
@@ -300,8 +306,10 @@ public partial class Player : AnimatedEntity
 
 		Player.SendChat( To.Everyone, new()
 		{
-			( $"{pawn.CurrentRank.Name.Substring(0, 5)} {pawn.Client.Name}: ", pawn.CurrentRank.Color ),
+			( $"{CurrentRank.Name.Substring(0, 5)} {Client.Name}: ", CurrentRank.Color ),
 			( $"{text}", Color.White ),
 		} );
+
 	}
+
 }

@@ -67,10 +67,10 @@ partial class Game : GameBase
 
 		if ( Host.IsClient ) return;
 
-		for ( int i = 0; i < Rand.Int( 12 ); i++ )
+		for ( int i = 0; i < Rand.Int( 2, 8 ); i++ )
 		{
 
-			new StudBot( Rand.Float( 8 ) + 2f );
+			new StudBot( Rand.Float( 7 ) + 2f );
 
 		}
 
