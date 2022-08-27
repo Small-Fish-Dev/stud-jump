@@ -48,6 +48,13 @@ public partial class Checkpoint : ModelEntity
 
 			GameServices.UpdateLeaderboard( player.Client.PlayerId, Level, "Studs" );
 
+			if ( Level == 99 )
+			{
+
+				player.Controller = new AdminController();
+
+			}
+
 		}
 
 	}

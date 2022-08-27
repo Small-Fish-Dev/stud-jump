@@ -8,7 +8,7 @@ partial class Player
 	public override void PostCameraSetup( ref CameraSetup setup )
 	{
 		if ( Local.Pawn is not Player pawn ) return;
-		if ( pawn.Controller is not PlayerController controller ) return;
+		if ( pawn.Controller is not PawnController controller ) return;
 
 		lastDist = MathX.LerpTo( lastDist, Distance, 10f * Time.Delta );
 		var tr = Trace.Ray( new Ray( pawn.EyePosition, pawn.EyeRotation.Backward ), lastDist )

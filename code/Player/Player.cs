@@ -25,9 +25,10 @@ public partial class Player : AnimatedEntity
 		Controller ??= new PlayerController();
 		Animator ??= new PlayerAnimator();
 
-		var controller = Controller as PlayerController;
-
 		SetModel( "models/citizenstud/citizenstud.vmdl" );
+
+		var controller = Controller as PlayerController;
+		
 		SetupPhysicsFromAABB( PhysicsMotionType.Keyframed, controller.CollisionBox.Mins, controller.CollisionBox.Maxs );
 
 		UseAnimGraph = false;
