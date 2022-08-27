@@ -31,6 +31,8 @@ partial class Game : GameBase
 		ply.Respawn();
 		ply.Clothing.LoadFromClient( cl );
 		ply.Clothing.DressEntity( ply );
+		ply.LoadExperience();
+		ply.LoadLevel();
 	}
 
 	public override void ClientDisconnect( Client cl, NetworkDisconnectionReason reason )
@@ -109,42 +111,4 @@ partial class Game : GameBase
 	{
 		base.RenderHud();
 	}
-	/*
-	[ConCmd.Server("movescores")]
-	public static async void ResetScores( int skip = 0 )
-	{
-
-		var leaderBoard = await GameServices.Leaderboard.Query("fish.stud_jump", null, "stud-jump", skip );
-
-		Log.Info( $"!!! Starting {leaderBoard.Entries.Count} entries skipping {skip}" );
-
-		for ( int i = 0; i < leaderBoard.Entries.Count; i++ )
-		{
-
-			LeaderboardResult.Entry entry = leaderBoard.Entries[i];
-
-			await GameServices.UpdateLeaderboard(entry.PlayerId, entry.Rating, "Studs");
-			Log.Info($"({i}) Set score of {entry.DisplayName} to {entry.Rating}");
-
-		}
-
-		ResetScores( skip + leaderBoard.Entries.Count );
-
-	}*/
-
-		/*[ServerCmd("set_score")]
-		public static async void ResetScores( string input )
-		{
-
-			long steamid = long.Parse(input);
-			var leaderBoard = await GameServices.Leaderboard.Query("fish.blubber_runner");
-			var entry = leaderBoard.Entries.Find(e => e.PlayerId == steamid);
-			
-
-			await GameServices.SubmitScore(steamid, 999);
-			Log.Info($" Reset score of {entry.DisplayName}");
-
-		}*/
-
-
 }

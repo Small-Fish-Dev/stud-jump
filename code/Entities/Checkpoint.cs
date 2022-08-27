@@ -40,7 +40,7 @@ public partial class Checkpoint : ModelEntity
 		{
 
 			player.CheckpointReached = this;
-			player.Experience += (int)Math.Pow( Level, 2.5f );
+			player.Experience += Level;
 
 			if ( player.Client.IsBot ) return;
 

@@ -53,12 +53,12 @@ public partial class PlayerController : PawnController
 
 				if ( Pawn is not Player pawn ) return;
 
-				Velocity += Vector3.Up * ( jumpStrength + pawn.RankIndex * 30 );
+				Velocity += Vector3.Up * ( jumpStrength + pawn.RankIndex * 31 );
 
 				if ( Host.IsServer )
 				{
 
-					pawn.Experience += (int)Math.Pow( pawn.RankIndex + 1, 2.5f );
+					pawn.Experience += 1 + (int)(pawn.RankIndex / 5f);
 
 				}
 			}

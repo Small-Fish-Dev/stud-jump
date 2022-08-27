@@ -130,6 +130,45 @@ public partial class Player : AnimatedEntity
 
 	}
 
+	public async void LoadExperience()
+	{
+
+		var results = await GameServices.Leaderboard.Query( Global.GameIdent, Client.PlayerId, "Experience" );
+		var myEntries = results.Entries.Where( x => x.PlayerId == Client.PlayerId );
+
+		if ( myEntries.Count() > 0 )
+		{
+
+			Experience = (int)myEntries.First().Rating;
+			Log.Info( $"{Client.Name}'s Experience ({Experience}) was fetched." );
+
+		}
+
+	}
+
+	public async void LoadLevel()
+	{
+
+		var results = await GameServices.Leaderboard.Query( Global.GameIdent, Client.PlayerId, "Studs" );
+		var myEntries = results.Entries.Where( x => x.PlayerId == Client.PlayerId );
+
+		if ( myEntries.Count() > 0 )
+		{
+
+			int studs = (int)myEntries.First().Rating;
+
+			Log.Info( $"{Client.Name}'s Studs ({studs}) was fetched." );
+
+			Position = Entity.All
+			.OfType<Checkpoint>()
+			.Where( x => x.Level == studs )
+			.First().Position;
+
+
+		}
+
+	}
+
 	public override void FrameSimulate( Client cl )
 	{
 		Controller?.FrameSimulate( cl, this, Animator );
