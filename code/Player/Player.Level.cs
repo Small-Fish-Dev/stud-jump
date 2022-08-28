@@ -48,7 +48,7 @@ partial class Player
 {
 	[Net] private int experience { get; set; }
 	private int previousRank = 0;
-	public int Experience 
+	internal int Experience 
 	{ 
 		get => experience; 
 		set
@@ -76,7 +76,7 @@ partial class Player
 
 	private int lastExperience = -1;
 	private int lastRank;
-	public int RankIndex
+	internal int RankIndex
 	{
 		get
 		{
@@ -90,7 +90,7 @@ partial class Player
 			return lastRank;
 		}
 	}
-	public Rank CurrentRank => Rank.All[RankIndex];
-	public Rank NextRank => Rank.All[Math.Min( RankIndex + 1, Rank.All.Length - 1 )];
-	public float ExperienceProgress => (float)(Experience - CurrentRank.Requirement) / (float)( NextRank.Requirement - CurrentRank.Requirement );
+	internal Rank CurrentRank => Rank.All[RankIndex];
+	internal Rank NextRank => Rank.All[Math.Min( RankIndex + 1, Rank.All.Length - 1 )];
+	internal float ExperienceProgress => (float)(Experience - CurrentRank.Requirement) / (float)( NextRank.Requirement - CurrentRank.Requirement );
 }
