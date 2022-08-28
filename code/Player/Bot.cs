@@ -95,7 +95,14 @@ public class StudBot : Bot
 		"join the smallfish discord!",
 		"visit the smallfish site at smallfi.sh (that's the url!)",
 		"join the smallfish discord!",
-		"visit the smallfish site at smallfi.sh (that's the url!)"
+		"visit the smallfish site at smallfi.sh (that's the url!)",
+		"haha wtf the chat censors ur password !! look: #####",
+		"small fish is definitely my favorite s&box development group",
+		"this game is so goooddd",
+		"heard they're adding a 100 new levels soon...",
+		"https://i.imgur.com/h1bFCsH.png",
+		"hamsteria release date january 20th 2023",
+		"lol is everyone a bot?"
 	};
 
 	TimeUntil nextMessage = Rand.Float( 30f );

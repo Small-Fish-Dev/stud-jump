@@ -29,6 +29,11 @@
     position: absolute;
     text-align: center;
     justify-content: center;
+    font-family: 'Comic Sans MS';
+    color: white;
+    font-size: 48px;
+    text-stroke: 4px black;
+    text-shadow: 4px 4px 5px black;
 
     .avatar {
         border-radius: 50%;
@@ -41,11 +46,13 @@
 
     .name {
         padding-left: 10px;
-        font-family: 'Comic Sans MS';
-        color: white;
-        font-size: 48px;
-        text-stroke: 4px black;
-        text-shadow: 4px 4px 5px black;
+    }
+
+    .rank {
+        position: absolute;
+        width: 100%;
+        font-size: 20px;
+        bottom: 0;
     }
 }
 

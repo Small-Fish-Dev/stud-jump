@@ -4,6 +4,7 @@ class Nameplate : WorldPanel
 {
 	private static Dictionary<Player, WorldPanel> nameplates = new();
 	private Player ply;
+	private Label rank;
 
 	private Nameplate( Player ply )
 	{
@@ -22,6 +23,10 @@ class Nameplate : WorldPanel
 
 		var lbl = container.AddChild<Label>( "name" );
 		lbl.Text = ply?.Client?.Name ?? "noname";
+
+		rank = container.AddChild<Label>( "rank" );
+		rank.Text = ply?.CurrentRank.Name;
+		rank.Style.FontColor = ply?.CurrentRank.Color;
 	}
 
 	[Event.Frame]
@@ -38,6 +43,10 @@ class Nameplate : WorldPanel
 		transform.Rotation = Rotation.LookAt( -CurrentView.Rotation.Forward );
 
 		Transform = transform;
+
+		if ( rank == null ) return;
+		rank.Text = ply?.CurrentRank.Name;
+		rank.Style.FontColor = ply?.CurrentRank.Color;
 	}
 
 	[Event.Tick.Client]
