@@ -113,13 +113,16 @@ partial class Game
 		
 		var totalHeight = 0f;
 		var meshes = new List<Mesh>();
-
-		for ( int i = 1; i < 100; i++ )
+		var multiplier = 1f;
+		for ( int i = 1; i < 120; i++ )
 		{
 			cubeCount = 0;
 
+			if ( i > 100 ) multiplier += (i - 100f) * 1.2f;
+
 			var size = 15f * StudToInch;
-			var height = i * 0.5f * StudToInch;
+			var heightNum = (i + multiplier - 1) * 0.5f;
+			var height = heightNum * StudToInch;
 			var pos = new Vector3( (i + 1) * (size + StudToInch) - StudToInch * 2f, 0, totalHeight + StudToInch / 4f );
 
 			var mat = defaultMat.CreateCopy();
@@ -165,7 +168,7 @@ partial class Game
 				};
 				worldPanel.AddClass( "heightCount" );
 				var label = worldPanel.AddChild<Label>();
-				label.Text = $" {i * 0.5f} studs ";
+				label.Text = $" {heightNum:F1} studs ";
 			}
 
 			totalHeight += height;
