@@ -304,9 +304,11 @@ public partial class Player : AnimatedEntity
 		}
 		text = $"{sb}";
 
+		var emoji = CurrentRank.Name.Split( " " );
+
 		Player.SendChat( To.Everyone, new()
 		{
-			( $"{CurrentRank.Name.Substring(0, 5)} {Client.Name}: ", CurrentRank.Color ),
+			( $"{emoji.FirstOrDefault()} {Client.Name}: ", CurrentRank.Color ),
 			( $"{text}", Color.White ),
 		} );
 

@@ -59,7 +59,7 @@ class Chat : Panel
 		if ( string.IsNullOrWhiteSpace( msg ) )
 			return;
 
-		(Local.Pawn as Player).Say( msg );
+		Player.SayCommand( msg );
 	}
 
 	public override void Tick()
