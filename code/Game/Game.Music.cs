@@ -20,11 +20,13 @@ public partial class Game
 
 			}
 
+			backgroundMusic.SetVolume( 1f );
+
 		}
 		else
 		{
 
-			backgroundMusic.Stop();
+			backgroundMusic.SetVolume( 0f );
 
 		}
 
