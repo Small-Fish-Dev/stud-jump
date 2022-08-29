@@ -22,8 +22,6 @@ class Chat : Panel
 		textEntry.AllowEmojiReplace = true;
 		textEntry.CaretColor = Color.White;
 
-		Sandbox.Hooks.Chat.OnOpenChat += () => textEntry.Focus();
-
 		ghostText = textEntry.AddChild<Label>();
 		ghostText.Style.Opacity = 0.25f;
 		ghostText.Text = $"To chat press ENTER or click here.";
@@ -73,5 +71,8 @@ class Chat : Panel
 			Style.Opacity = 0.6f;
 		else
 			Style.Opacity = 1f;
+
+		if ( Sandbox.Input.Released( InputButton.Chat ) )
+			textEntry.Focus();
 	}
 }
