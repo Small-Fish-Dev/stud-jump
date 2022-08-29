@@ -69,7 +69,7 @@ public partial class Checkpoint : ModelEntity
 
 		animationModel = new ModelEntity();
 		animationModel.SetModel( Model.ResourcePath );
-		animationModel.SetMaterialOverride( Material.Load( "materials/dev/primary_white_emissive.vmat" ) );
+		animationModel.SetMaterialOverride( "materials/dev/primary_white_emissive.vmat" );
 		animationModel.Position = Position;
 		animationModel.Rotation = Rotation;
 

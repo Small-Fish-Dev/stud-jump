@@ -67,10 +67,32 @@ partial class Game : GameBase
 
 		if ( Host.IsClient ) return;
 
-		for ( int i = 0; i < Rand.Int( 2, 8 ); i++ )
+		CreateBots();
+
+	}
+
+	public void CreateBots()
+	{
+
+		var allClothing = ResourceLibrary.GetAll<Clothing>();
+		int randAmount = Rand.Int( 2, 8 );
+
+		for ( int i = 0; i < randAmount; i++ )
 		{
 
-			new StudBot( Rand.Float( 7 ) + 2f );
+			var bot = new StudBot( Rand.Float( 7 ) + 2f );
+			Player pawn = bot.Client.Pawn as Player;
+
+			var randClothing = Rand.Int( 12, 24 );
+
+			for ( int r = 0; r < randClothing; r++ )
+			{
+
+				pawn.Clothing.Toggle( allClothing.ElementAt( new Random().Next( allClothing.Count() ) ) );
+
+			}
+
+			pawn.Clothing.DressEntity( pawn );
 
 		}
 
