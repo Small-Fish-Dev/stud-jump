@@ -14,9 +14,9 @@ global using System.ComponentModel.DataAnnotations;
 namespace Stud;
 
 partial class Game
-{   
+{
 	// Score manipulation stuff!
-	
+
 	/*
 	[ConCmd.Server("movescores")]
 	public static async void ResetScores( int skip = 0 )
@@ -53,6 +53,40 @@ partial class Game
 		Log.Info($" Reset score of {entry.DisplayName}");
 
 	}*/
+
+
+
+	[ClientRpc]
+	public static void UpdateStudCollisions( bool state )
+	{
+
+		Game.Instance.Map.PhysicsBody.Enabled = state;
+
+	}
+
+	[ClientRpc]
+	public static void BroadcastJumpscare()
+	{
+
+		Event.Run( "jumpscare" );
+
+	}
+
+	[ClientRpc]
+	public static void AddAdminMenu()
+	{
+
+		Event.Run( "addAdminMenu" );
+
+	}
+
+	[ClientRpc]
+	public static void RemoveAdminMenu()
+	{
+
+		Event.Run( "reset" );
+
+	}
 
 
 }

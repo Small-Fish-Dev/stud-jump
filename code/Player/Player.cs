@@ -15,6 +15,7 @@ public partial class Player : AnimatedEntity
 	public Checkpoint CheckpointReached { get; set; }
 
 	public ClothingContainer Clothing = new();
+	public bool IsAdmin => CheckpointReached.Level >= 119;
 
 	public override void Spawn()
 	{

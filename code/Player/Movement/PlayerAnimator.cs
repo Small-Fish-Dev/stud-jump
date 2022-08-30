@@ -5,10 +5,23 @@ public partial class PlayerAnimator : PawnAnimator
 	public override void Simulate()
 	{
 		if ( Pawn is not Player pawn ) return;
-		if ( pawn.Controller is not PlayerController controller ) return;
 
-		var rot = Rotation.LookAt( controller.LastMoveDir.WithZ( 0f ), Vector3.Up );
-		Rotation = Rotation.Lerp( Rotation, rot, Time.Delta * 10f );
+		if ( pawn.Controller is PlayerController plyController )
+		{
+
+			var rot = Rotation.LookAt( plyController.LastMoveDir.WithZ( 0f ), Vector3.Up );
+			Rotation = Rotation.Lerp( Rotation, rot, Time.Delta * 10f );
+
+		}
+
+		if ( pawn.Controller is AdminController admController )
+		{
+
+			var rot = Rotation.LookAt( admController.LastMoveDir.WithZ( 0f ), Vector3.Up );
+			Rotation = Rotation.Lerp( Rotation, rot, Time.Delta * 10f );
+
+		}
+
 
 		ComputeAnimation( pawn );
 

@@ -46,8 +46,8 @@ public struct Rank
 
 partial class Player
 {
-	[Net] private int experience { get; set; }
-	private int previousRank = 0;
+	[Net, Change] private int experience { get; set; }
+	[Net] private int previousRank { get; set; } = 0;
 	internal int Experience 
 	{ 
 		get => experience; 
@@ -76,7 +76,7 @@ partial class Player
 
 	private int lastExperience = -1;
 	private int lastRank;
-	internal int RankIndex
+	[Net] internal int RankIndex
 	{
 		get
 		{
@@ -93,4 +93,20 @@ partial class Player
 	internal Rank CurrentRank => Rank.All[RankIndex];
 	internal Rank NextRank => Rank.All[Math.Min( RankIndex + 1, Rank.All.Length - 1 )];
 	internal float ExperienceProgress => (float)(Experience - CurrentRank.Requirement) / (float)( NextRank.Requirement - CurrentRank.Requirement );
+
+	private void OnexperienceChanged( int oldValue, int newValue )
+	{
+
+		if ( this != Local.Pawn as Player ) return;
+
+		Event.Run( "onExperience", this, newValue - oldValue );
+
+		if ( previousRank < RankIndex )
+		{
+
+			Event.Run( "levelUp", this );
+
+		}
+
+	}
 }

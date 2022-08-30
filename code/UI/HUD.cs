@@ -20,4 +20,31 @@ class HUD : RootPanel
 	{
 		SetTemplate( "/UI/Layout.html" );
 	}
+
+	[Event("jumpscare")]
+	private void AddJumpscare()
+	{
+
+		AddChild( new Jumpscare() );
+
+	}
+
+	private Panel adminMenu;
+
+	[Event( "addAdminMenu" )]
+	private void AddAdminMenu()
+	{
+
+		adminMenu = AddChild<AdminCommands>();
+
+	}
+
+	[Event( "reset" )]
+	private void AdminReset()
+	{
+
+		adminMenu.Delete();
+
+	}
+
 }

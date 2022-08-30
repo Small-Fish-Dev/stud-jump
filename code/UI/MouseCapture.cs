@@ -5,6 +5,7 @@ public partial class MouseCapture : Panel
 	public MouseCapture()
 	{
 		Style.PointerEvents = PointerEvents.All;
+
 	}
 
 	[Event.BuildInput]

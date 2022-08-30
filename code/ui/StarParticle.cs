@@ -4,7 +4,7 @@ using Sandbox.UI.Construct;
 using System;
 using System.Collections.Generic;
 
-public class HeartParticle : Panel
+public class StarParticle : Panel
 {
 
 	TimeSince lifeTime = 0f;
@@ -16,13 +16,14 @@ public class HeartParticle : Panel
 	Vector2 particleGravity;
 	Vector2 particleVelocity;
 
-	public HeartParticle( float duration = 1f, float size = 1f, float speed = 1f, Vector2? direction = null, Vector2? gravity = null )
+	public StarParticle( float duration = 1f, float size = 1f, float speed = 1f, Vector2? direction = null, Vector2? gravity = null )
 	{
 
 		deathTime = duration;
 		transitions = duration / 2;
 		particleSpeed = speed;
 		particleSize = Rand.Float( 20, 50 ) * size;
+		particleRotation = Rand.Float( 20 );
 
 		Style.Height = 0;
 		Style.BackgroundAngle = Length.Percent( particleRotation );

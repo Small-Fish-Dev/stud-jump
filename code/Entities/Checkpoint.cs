@@ -51,7 +51,7 @@ public partial class Checkpoint : ModelEntity
 			if ( Level == 119 )
 			{
 
-				player.Controller = new AdminController();
+				Game.AddAdminMenu( To.Single( player.Client ) );
 
 			}
 

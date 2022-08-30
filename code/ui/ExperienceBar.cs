@@ -39,4 +39,46 @@ public class ExperienceBar : Panel
 
 	}
 
+	[Event("onExperience")]
+	public void OnExperience( Player ply,  int experience )
+	{
+
+		for ( int i = 0; i < experience; i++ )
+		{
+
+			float randLife = (float)(new Random().Next( 5, 10 )) / 10f;
+			float randSize = (float)(new Random().Next( 3, 7 )) / 10f;
+			float randSpeed = (float)(new Random().Next( 5, 20 )) / 10f;
+
+			var star = new StarParticle( randLife, randSize, randSpeed, null );
+			star.Style.Left = Length.Pixels( bar.Box.Rect.TopRight.x * Parent.ScaleFromScreen );
+			star.Style.Top = Length.Pixels( ( bar.Box.Rect.TopRight.y + bar.Box.Rect.Height / 2 ) * Parent.ScaleFromScreen );
+			Parent.AddChild( star );
+
+		}
+
+	}
+
+	[Event("levelUp")]
+	public void LevelUp( Player ply )
+	{
+
+		for ( int i = 0; i < 30; i++ )
+		{
+
+			float randLife = (float)(new Random().Next( 5, 10 )) / 10f;
+			float randSize = (float)(new Random().Next( 3, 7 )) / 10f;
+			float randSpeed = (float)(new Random().Next( 5, 20 )) / 10f;
+
+			float randPos = Rand.Float( Box.Rect.Width );
+
+			var star = new StarParticle( randLife, randSize, randSpeed, null, new Vector2( 0f, 2f ) );
+			star.Style.Left = Length.Pixels( ( bar.Box.Rect.TopLeft.x  + randPos ) * Parent.ScaleFromScreen );
+			star.Style.Top = Length.Pixels( (Box.Rect.TopRight.y + Box.Rect.Height / 2) * Parent.ScaleFromScreen );
+			Parent.AddChild( star );
+
+		}
+
+	}
+
 }

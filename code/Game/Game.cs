@@ -31,8 +31,8 @@ partial class Game : GameBase
 		ply.Respawn();
 		ply.Clothing.LoadFromClient( cl );
 		ply.Clothing.DressEntity( ply );
-		ply.LoadExperience();
-		ply.LoadLevel();
+		//ply.LoadExperience();
+		//ply.LoadLevel();
 	}
 
 	public override void ClientDisconnect( Client cl, NetworkDisconnectionReason reason )
