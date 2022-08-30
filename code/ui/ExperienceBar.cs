@@ -43,7 +43,7 @@ public class ExperienceBar : Panel
 	public void OnExperience( Player ply,  int experience )
 	{
 
-		for ( int i = 0; i < experience; i++ )
+		for ( int i = 0; i < Math.Min( experience, 100 ); i++ )
 		{
 
 			float randLife = (float)(new Random().Next( 5, 10 )) / 10f;
