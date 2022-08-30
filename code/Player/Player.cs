@@ -37,6 +37,11 @@ public partial class Player : AnimatedEntity
 
 		Tags.Add( "player" );
 
+		CheckpointReached = Entity.All
+			.OfType<Checkpoint>()
+			.Where( x => x.Level == 0 )
+			.First();
+
 		Respawn();
 	}
 

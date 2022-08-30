@@ -36,6 +36,13 @@ public partial class Checkpoint : ModelEntity
 
 		if ( other is not Player player ) return;
 
+		Reached( player );
+
+	}
+
+	public void Reached( Player player )
+	{
+
 		if ( IsServer && (player.CheckpointReached == null || player.CheckpointReached.Level < Level) )
 		{
 

@@ -26,8 +26,10 @@ public class StudBot : Bot
 	public override void BuildInput( InputBuilder builder )
 	{
 
+		var pawn = Client.Pawn as Player;
+
 		builder.SetButton( InputButton.Jump, false );
-		builder.InputDirection = Client.Pawn.Rotation.Forward;
+		builder.InputDirection = pawn.Rotation.Forward;
 
 		if ( Client.Pawn.GroundEntity != null )
 		{
@@ -35,11 +37,11 @@ public class StudBot : Bot
 			if ( Noise.Perlin( lifeTime * 10f, randSeed, randSeed ) * 2.2f - 0.5f >= (Crazyness / 20f * 1.8f) )
 			{
 
-				var startPos = Client.Pawn.Position + Vector3.Up * 2.5f * Game.StudToInch;
-				var endPos = startPos + Client.Pawn.Rotation.Forward * 32f;
+				var startPos = Client.Pawn.Position + Vector3.Up * 3f * Game.StudToInch;
+				var endPos = startPos + pawn.Rotation.Forward * 32f;
 				var wallTrace = Trace.Ray( startPos, endPos )
-					.Size( Game.StudToInch / 2f )
-					.Ignore( Client.Pawn )
+					.Size( Game.StudToInch * 2f )
+					.Ignore( pawn )
 					.Run();
 
 				if ( wallTrace.Hit )
@@ -48,6 +50,38 @@ public class StudBot : Bot
 					builder.SetButton( InputButton.Jump, true );
 
 				}
+
+			}
+
+			var closeEntities = Entity.FindInSphere( pawn.Position, 70f );
+			Player closestPlayer = closeEntities
+				.OfType<Player>()
+				.OrderBy( x => x.Position.Distance( pawn.Position ) )
+				.FirstOrDefault( pawn );
+
+			Checkpoint closestCheckpoint = closeEntities
+				.OfType<Checkpoint>()
+				.OrderBy( x => x.Position.Distance( pawn.Position ) )
+				.FirstOrDefault( pawn.CheckpointReached );
+
+			if ( closestCheckpoint != pawn.CheckpointReached )
+			{
+
+				if ( closestCheckpoint.Level > pawn.CheckpointReached.Level )
+				{
+
+					closestCheckpoint.Reached( pawn );
+
+				}
+
+			}
+
+			if ( closestPlayer != pawn )
+			{
+
+				float magnetValue = 0.5f + Crazyness / 20f;
+
+				builder.InputDirection = (closestPlayer.Position - pawn.Position).Normal * ( 1 - magnetValue ) + Vector3.Forward * magnetValue;
 
 			}
 

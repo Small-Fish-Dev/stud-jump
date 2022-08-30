@@ -31,8 +31,8 @@ partial class Game : GameBase
 		ply.Respawn();
 		ply.Clothing.LoadFromClient( cl );
 		ply.Clothing.DressEntity( ply );
-		//ply.LoadExperience();
-		//ply.LoadLevel();
+		ply.LoadExperience();
+		ply.LoadLevel();
 	}
 
 	public override void ClientDisconnect( Client cl, NetworkDisconnectionReason reason )
@@ -75,12 +75,12 @@ partial class Game : GameBase
 	{
 
 		var allClothing = ResourceLibrary.GetAll<Clothing>();
-		int randAmount = Rand.Int( 2, 8 );
+		int randAmount = Rand.Int( 4, 8 );
 
 		for ( int i = 0; i < randAmount; i++ )
 		{
 
-			var bot = new StudBot( Rand.Float( 7 ) + 2f );
+			var bot = new StudBot( Rand.Float( 4 ) );
 			Player pawn = bot.Client.Pawn as Player;
 
 			var randClothing = Rand.Int( 12, 24 );

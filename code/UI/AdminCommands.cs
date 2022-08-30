@@ -99,6 +99,20 @@ class AdminCommands : Panel
 
 		Game.RemoveAdminMenu( To.Single( player.Client ) );
 
+
+		bool flyActive = player.Controller is AdminController;
+		if ( flyActive ) player.Controller = new PlayerController();
+
+		bool invisActive = !player.EnableDrawing;
+		if ( invisActive ) player.EnableDrawing = true;
+
+		bool studActive = Game.Instance.Map.PhysicsBody.Enabled;
+		if ( !studActive )
+		{
+			Game.Instance.Map.PhysicsBody.Enabled = true;
+			Game.UpdateStudCollisions( true );
+		}
+
 	}
 
 	[ConCmd.Server]

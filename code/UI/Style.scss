@@ -116,7 +116,7 @@ StarParticle {
     opacity: 1;
     height: 40px;
     aspect-ratio: 1;
-    z-index: 6;
+    pointer-events: none;
 }
 
 MuteButton {
