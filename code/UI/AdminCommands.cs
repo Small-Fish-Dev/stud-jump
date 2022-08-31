@@ -91,7 +91,7 @@ class AdminCommands : Panel
 	{
 
 		if ( ConsoleSystem.Caller.Pawn is not Player player ) return;
-		if ( !player.IsAdmin ) return;
+		//if ( !player.IsAdmin ) return;
 
 		player.CheckpointReached = Entity.All.OfType<Checkpoint>().Where( x => x.Level == 0 ).First();
 		player.Position = player.CheckpointReached.Position;
