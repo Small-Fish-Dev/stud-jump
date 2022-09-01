@@ -36,7 +36,7 @@ public struct Rank
 		new Rank { Name = "🦍 Greater Ape", Color = new Color( 0.3f, 0.2f, 0.2f), Requirement = 6585 },
 		new Rank { Name = "🐟 Small Fish", Color = Color.Cyan, Requirement = 7050 },
 		new Rank { Name = "😻​ Mark", Color = Color.White, Requirement = 7530 },
-		new Rank { Name = "🏴‍☠ CHEATER!!!", Color = Color.Black, Requirement = 99999999 },
+		new Rank { Name = "🏴‍☠ CHEATER!!!", Color = Color.Black, Requirement = 999999 }
 	};
 
 	public string Name;
