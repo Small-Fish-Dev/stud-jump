@@ -61,8 +61,12 @@ partial class Player
 			if ( !Client.IsBot )
 			{
 
-				GameServices.UpdateLeaderboard( Client.PlayerId, experience, "Experience" );
+				if ( !Host.IsToolsEnabled )
+				{
 
+					GameServices.UpdateLeaderboard( Client.PlayerId, experience, "Experience" );
+
+				}
 			}
 
 			if ( previousRank < RankIndex )

@@ -53,7 +53,12 @@ public partial class Checkpoint : ModelEntity
 
 			CheckpointAnimation( To.Single( player.Client ) );
 
-			GameServices.UpdateLeaderboard( player.Client.PlayerId, Level, "Studs" );
+			if ( !Host.IsToolsEnabled )
+			{
+
+				GameServices.UpdateLeaderboard( player.Client.PlayerId, Level, "Studs" );
+
+			}
 
 			if ( Level == 119 )
 			{
