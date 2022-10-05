@@ -64,7 +64,7 @@ partial class Player
 				if ( !Host.IsToolsEnabled )
 				{
 
-					LeaderboardExtensions.Submit( Game.ExperienceLeaderboard.Value, Client, experience );
+					Game.SubmitScore( "Experience", Client, experience );
 
 				}
 			}

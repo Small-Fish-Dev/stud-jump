@@ -56,7 +56,7 @@ public partial class Checkpoint : ModelEntity
 			if ( !Host.IsToolsEnabled )
 			{
 
-				LeaderboardExtensions.Submit( Game.StudsLeaderboard.Value, player.Client, Level );
+				Game.SubmitScore( "Studs", player.Client, Level );
 
 			}
 

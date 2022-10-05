@@ -140,13 +140,12 @@ public partial class Player : AnimatedEntity
 	public async void LoadExperience()
 	{
 
-		var results = await GameServices.Leaderboard.Query( Global.GameIdent, Client.PlayerId, "Experience" );
-		var myEntries = results.Entries.Where( x => x.PlayerId == Client.PlayerId );
+		var result = await Game.GetScore( "Experience", Client );
 
-		if ( myEntries.Count() > 0 )
+		if ( result != null )
 		{
 
-			Experience = (int)myEntries.First().Rating;
+			Experience = result.Value.Score;
 			Log.Info( $"{Client.Name}'s Experience ({Experience}) was fetched." );
 
 		}
@@ -156,13 +155,12 @@ public partial class Player : AnimatedEntity
 	public async void LoadLevel()
 	{
 
-		var results = await GameServices.Leaderboard.Query( Global.GameIdent, Client.PlayerId, "Studs" );
-		var myEntries = results.Entries.Where( x => x.PlayerId == Client.PlayerId );
+		var result = await Game.GetScore( "Studs", Client );
 
-		if ( myEntries.Count() > 0 )
+		if ( result != null )
 		{
 
-			int studs = (int)myEntries.First().Rating;
+			int studs = result.Value.Score;
 
 			Log.Info( $"{Client.Name}'s Studs ({studs}) was fetched." );
 

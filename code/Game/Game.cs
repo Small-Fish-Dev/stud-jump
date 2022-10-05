@@ -16,8 +16,6 @@ namespace Stud;
 partial class Game : GameBase
 {
 	public static Game Instance { get; private set; }
-	public static Leaderboard? StudsLeaderboard { get; set; }
-	public static Leaderboard? ExperienceLeaderboard { get; set; }
 
 	public Game()
 	{
@@ -67,12 +65,29 @@ partial class Game : GameBase
 	public override void PostLevelLoaded()
 	{
 
-		StudsLeaderboard = Leaderboard.Find( "Studs" ).Result;
-		ExperienceLeaderboard = Leaderboard.Find( "Experience" ).Result;
-
 		if ( Host.IsClient ) return;
 
 		CreateBots();
+
+	}
+
+	public static async void SubmitScore( string bucket, Client client, int score )
+	{
+
+		var leaderboard = await Leaderboard.FindOrCreate( bucket, false );
+
+		await leaderboard.Value.Submit( client, score );
+
+		Log.Info( "Submitted " );
+
+	}
+
+	public static async Task<LeaderboardEntry?> GetScore( string bucket, Client client )
+	{
+
+		var leaderboard = await Leaderboard.FindOrCreate( bucket, false );
+
+		return await leaderboard.Value.GetScore( client.PlayerId );
 
 	}
 
