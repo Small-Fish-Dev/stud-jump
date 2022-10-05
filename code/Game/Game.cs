@@ -16,6 +16,8 @@ namespace Stud;
 partial class Game : GameBase
 {
 	public static Game Instance { get; private set; }
+	public static Leaderboard? StudsLeaderboard { get; set; }
+	public static Leaderboard? ExperienceLeaderboard { get; set; }
 
 	public Game()
 	{
@@ -64,6 +66,9 @@ partial class Game : GameBase
 
 	public override void PostLevelLoaded()
 	{
+
+		StudsLeaderboard = Leaderboard.Find( "Studs" ).Result;
+		ExperienceLeaderboard = Leaderboard.Find( "Experience" ).Result;
 
 		if ( Host.IsClient ) return;
 

@@ -75,6 +75,10 @@
           "r": "Collide"
         }
       ]
-    }
+    },
+    "DefaultLeaderboards": [
+      "Studs",
+      "Experience"
+    ]
   }
 }
