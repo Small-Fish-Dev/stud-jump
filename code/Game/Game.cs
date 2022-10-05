@@ -78,8 +78,6 @@ partial class Game : GameBase
 
 		await leaderboard.Value.Submit( client, score );
 
-		Log.Info( "Submitted " );
-
 	}
 
 	public static async Task<LeaderboardEntry?> GetScore( string bucket, Client client )
