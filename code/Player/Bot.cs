@@ -37,7 +37,7 @@ public class StudBot : Bot
 			if ( Noise.Perlin( lifeTime * 10f, randSeed, randSeed ) * 2.2f - 0.5f >= (Crazyness / 20f * 1.8f) )
 			{
 
-				var startPos = Client.Pawn.Position + Vector3.Up * 2f * Game.StudToInch;
+				var startPos = Client.Pawn.Position + Vector3.Up * 3f * Game.StudToInch;
 				var endPos = startPos + pawn.Rotation.Forward * 50f;
 				var wallTrace = Trace.Ray( startPos, endPos )
 					.Size( Game.StudToInch * 4f )

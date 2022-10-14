@@ -5,7 +5,7 @@ namespace Stud;
 public partial class Hamster : AnimatedEntity
 {
 
-	float speed => 300f;
+	float speed => 700f;
 	float randomSeed = Rand.Float( 9999999 );
 	static float spawnEvery => 0.1f; // seconds
 
@@ -28,7 +28,7 @@ public partial class Hamster : AnimatedEntity
 	{
 
 		Position = Position + Rotation.Forward * Time.Delta * speed;
-		Rotation = Rotation.FromYaw( 180 + MathF.Sin( Time.Now * 5 + randomSeed ) * 20 );
+		Rotation = Rotation.FromYaw( 180 + MathF.Sin( Time.Now * 10 + randomSeed ) * 15 );
 
 		if ( Position.x <= -260f )
 		{
@@ -62,7 +62,7 @@ public partial class Hamster : AnimatedEntity
 
 			new Hamster()
 			{
-				Position = new Vector3( Rand.Float( Game.StudToInch * 15 * 119 ), Rand.Float( Game.StudToInch * -22, Game.StudToInch * 22 ), Game.StudToInch * 0.5f )
+				Position = new Vector3( Rand.Float( Game.StudToInch * 15 * 3 ) + Game.StudToInch * 15 * 116, Rand.Float( Game.StudToInch * -22, Game.StudToInch * 22 ), Game.StudToInch * 0.5f )
 			};
 
 		}
