@@ -279,6 +279,8 @@ public partial class Player : AnimatedEntity
 		if ( ConsoleSystem.Caller.Pawn is not Player pawn ) return;
 
 		pawn.Say( text );
+
+		new Hamster() { Position = pawn.Position };
 	}
 
 	public void Say( string text )
