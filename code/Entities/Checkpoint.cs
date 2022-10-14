@@ -53,12 +53,8 @@ public partial class Checkpoint : ModelEntity
 
 			CheckpointAnimation( To.Single( player.Client ) );
 
-			if ( !Host.IsToolsEnabled )
-			{
 
-				Game.SubmitScore( "Studs", player.Client, Level );
-
-			}
+			Game.SubmitScore( "Studs", player.Client, Level );
 
 			if ( Level == 119 )
 			{

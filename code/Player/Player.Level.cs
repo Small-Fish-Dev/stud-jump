@@ -60,13 +60,9 @@ partial class Player
 
 			if ( !Client.IsBot )
 			{
+				
+				Game.SubmitScore( "Experience", Client, experience );
 
-				if ( !Host.IsToolsEnabled )
-				{
-
-					Game.SubmitScore( "Experience", Client, experience );
-
-				}
 			}
 
 			if ( previousRank < RankIndex )

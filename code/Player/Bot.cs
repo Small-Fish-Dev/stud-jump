@@ -53,11 +53,7 @@ public class StudBot : Bot
 
 			}
 
-			var closeEntities = Entity.FindInSphere( pawn.Position, 70f );
-			Player closestPlayer = closeEntities
-				.OfType<Player>()
-				.OrderBy( x => x.Position.Distance( pawn.Position ) )
-				.FirstOrDefault( pawn );
+			var closeEntities = Entity.FindInSphere( pawn.Position, Game.StudToInch * 30f );
 
 			Checkpoint closestCheckpoint = closeEntities
 				.OfType<Checkpoint>()
@@ -73,15 +69,6 @@ public class StudBot : Bot
 					closestCheckpoint.Reached( pawn );
 
 				}
-
-			}
-
-			if ( closestPlayer != pawn )
-			{
-
-				float magnetValue = 0.5f + Crazyness / 20f;
-
-				builder.InputDirection = (closestPlayer.Position - pawn.Position).Normal * ( 1 - magnetValue ) + Vector3.Forward * magnetValue;
 
 			}
 

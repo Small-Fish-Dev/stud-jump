@@ -62,7 +62,7 @@ public partial class Hamster : AnimatedEntity
 
 			new Hamster()
 			{
-				Position = new Vector3( Rand.Float( Game.StudToInch * 15 * 119 ), Rand.Float( Game.StudToInch * -22, Game.StudToInch * 22 ), 0 )
+				Position = new Vector3( Rand.Float( Game.StudToInch * 15 * 119 ), Rand.Float( Game.StudToInch * -22, Game.StudToInch * 22 ), Game.StudToInch * 0.5f )
 			};
 
 		}
