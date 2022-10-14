@@ -13,9 +13,6 @@ public partial class Hamster : AnimatedEntity
 	{
 
 		SetModel( "models/citizenstud/citizenstud.vmdl" );
-		Scale = 0.3f;
-		Rotation = Rotation.FromYaw( 180 );
-		SetupPhysicsFromSphere( PhysicsMotionType.Keyframed, 0, 50f );
 
 		Tags.Clear();
 		Tags.Add( "trigger" );
@@ -23,9 +20,13 @@ public partial class Hamster : AnimatedEntity
 		base.Spawn();
 	}
 
+	PhysicsGroup body;
+
 	[Event.Tick.Server]
 	void computeMovement()
 	{
+
+		body ??= SetupPhysicsFromSphere( PhysicsMotionType.Keyframed, 0, 15f * ( Scale / 2 + 0.5f ) );
 
 		Position = Position + Rotation.Forward * Time.Delta * speed;
 		Rotation = Rotation.FromYaw( 180 + MathF.Sin( Time.Now * 10 + randomSeed ) * 15 );
@@ -47,7 +48,7 @@ public partial class Hamster : AnimatedEntity
 		if ( other is Player player )
 		{
 
-			player.Velocity += Rotation.Forward * 10000f + Vector3.Up * 1000f;
+			player.Velocity += ( Rotation.Forward * 10000f + Vector3.Up * 1000f ) * Scale;
 
 		}
 
@@ -62,7 +63,8 @@ public partial class Hamster : AnimatedEntity
 
 			new Hamster()
 			{
-				Position = new Vector3( Rand.Float( Game.StudToInch * 15 * 3 ) + Game.StudToInch * 15 * 116, Rand.Float( Game.StudToInch * -22, Game.StudToInch * 22 ), Game.StudToInch * 0.5f )
+				Position = new Vector3( Rand.Float( Game.StudToInch * 15 * 3 ) + Game.StudToInch * 15 * 116, Rand.Float( Game.StudToInch * -22, Game.StudToInch * 22 ), Game.StudToInch * 0.5f ),
+				Scale = Time.Tick % (60 * spawnEvery * 100) == 0 ? 3f : 1f,
 			};
 
 		}
