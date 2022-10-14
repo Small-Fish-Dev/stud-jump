@@ -113,22 +113,19 @@ partial class Game
 		
 		var totalHeight = 0f;
 		var meshes = new List<Mesh>();
-		var multiplier = 1f;
 		for ( int i = 1; i < 120; i++ )
 		{
 			cubeCount = 0;
 
-			if ( i > 100 ) multiplier += (i - 100f) * 1.2f;
-
 			var size = 15f * StudToInch;
-			var heightNum = (i + multiplier - 1) * 0.5f;
+			var heightNum = 1;
 			var height = heightNum * StudToInch;
-			var pos = new Vector3( (i + 1) * (size + StudToInch) - StudToInch * 2f, 0, totalHeight + StudToInch / 4f );
+			var pos = new Vector3( (i + 1) * size - StudToInch * 2f, 0, totalHeight + StudToInch / 4f );
 
 			var mat = defaultMat.CreateCopy();
 			if ( Host.IsClient )
 			{
-				var hsv = new ColorHsv( totalHeight, 1f, 1f );
+				var hsv = new ColorHsv( i * 10f, 1f, 1f );
 				var col = hsv.ToColor().ToColor32();
 				var tex = Texture.Create( 1, 1 )
 					.WithData( new[] { col.r, col.g, col.b, (byte)255 } )
@@ -140,9 +137,8 @@ partial class Game
 			var vertices = new List<SimpleVertex>();
 			var indices = new List<int>();
 			var mesh = new Mesh( mat );
-			var point = new Vector3( size / 2f, size / 2f, StudToInch / 2f );
+			var point = new Vector3( size / 2f, 22.5f * StudToInch, StudToInch / 2f );
 			createCube( pos - point, pos + point, ref vertices, ref indices );
-			createCube( pos - point.WithX( -point.x ), pos + new Vector3( point.x + StudToInch, point.y, height + StudToInch / 2f ), ref vertices, ref indices );
 			
 			mesh.CreateVertexBuffer( vertices.Count, SimpleVertex.Layout, vertices );
 			mesh.CreateIndexBuffer( indices.Count, indices );
@@ -156,22 +152,6 @@ partial class Game
 				checkpoint.Level = i;
 				checkpoint.Transmit = TransmitType.Always;
 			}
-			else if ( i * 0.5f > 3f )
-			{
-				var h = 375f;
-				var worldPanel = new WorldPanel()
-				{
-					Position = pos + Vector3.Up * height / 2f + point.WithY( 0 ) + Vector3.Backward * 1f,
-					Rotation = Rotation.LookAt( Vector3.Backward ).RotateAroundAxis( Vector3.Forward, -90f ),
-					PanelBounds = new Rect( -size * 10f, -h / 2f, size * 20f, h ),
-					StyleSheet = HUD.Instance.StyleSheet
-				};
-				worldPanel.AddClass( "heightCount" );
-				var label = worldPanel.AddChild<Label>();
-				label.Text = $" {heightNum:F1} studs ";
-			}
-
-			totalHeight += height;
 		}
 		
 		Map?.Delete();

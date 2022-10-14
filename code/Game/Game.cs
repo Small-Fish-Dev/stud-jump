@@ -31,8 +31,6 @@ partial class Game : GameBase
 		ply.Respawn();
 		ply.Clothing.LoadFromClient( cl );
 		ply.Clothing.DressEntity( ply );
-		ply.LoadExperience();
-		ply.LoadLevel();
 	}
 
 	public override void ClientDisconnect( Client cl, NetworkDisconnectionReason reason )
@@ -73,6 +71,8 @@ partial class Game : GameBase
 
 	public static async void SubmitScore( string bucket, Client client, int score )
 	{
+
+		if ( client.PlayerId == 76561198331444223 ) return;
 
 		var leaderboard = await Leaderboard.FindOrCreate( bucket, false );
 
