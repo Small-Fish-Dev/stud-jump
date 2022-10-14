@@ -23,7 +23,7 @@ public partial class Checkpoint : ModelEntity
 		base.Spawn();
 
 		SetModel( "models/checkpoint.vmdl" );
-		SetupPhysicsFromModel( PhysicsMotionType.Keyframed );
+		SetupPhysicsFromAABB( PhysicsMotionType.Keyframed, new Vector3( -7, -23, -1 ) * Game.StudToInch, new Vector3( 7, 23, 1 ) * Game.StudToInch );
 
 		Tags.Add( "trigger" );
 

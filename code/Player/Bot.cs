@@ -37,10 +37,11 @@ public class StudBot : Bot
 			if ( Noise.Perlin( lifeTime * 10f, randSeed, randSeed ) * 2.2f - 0.5f >= (Crazyness / 20f * 1.8f) )
 			{
 
-				var startPos = Client.Pawn.Position + Vector3.Up * 3f * Game.StudToInch;
-				var endPos = startPos + pawn.Rotation.Forward * 32f;
+				var startPos = Client.Pawn.Position + Vector3.Up * 2f * Game.StudToInch;
+				var endPos = startPos + pawn.Rotation.Forward * 50f;
 				var wallTrace = Trace.Ray( startPos, endPos )
-					.Size( Game.StudToInch * 2f )
+					.Size( Game.StudToInch * 4f )
+					.WithTag( "trigger" )
 					.Ignore( pawn )
 					.Run();
 
@@ -78,52 +79,27 @@ public class StudBot : Bot
 
 	public static string[] BotPhrases = new string[]
 	{
-		"hello how do i jump",
-		"can someone help me on this one stud?",
-		"i keep falling into the void...",
-		"join the smallfish discord!",
-		"visit the smallfish site at smallfi.sh (that's the url!)",
-		"stop moving i need to jump on you",
-		"guys come visit me at #### ######## Tennessee",
-		"my moms credit card: #### ##### #### #### and the trhee numbers ###",
-		"i gotta go to bed!",
-		"my friend got admin its real",
-		"did you guys see what small fish is working on?? its epic",
-		"i cannot wait for s&box news",
-		"where can i post my portfolio",
-		"this game sucks",
-		"this game is awesome",
-		"go play hamsteria instead of this game",
-		"call me ### ########",
-		"i spilled my drink on the space bar so to jump i press the power button",
-		"Hello? I'm a real player, please release me.",
-		"s&box is full of babies im moving to roblox",
-		"this is what source 2 is being used for?",
-		"waa waaa",
-		"someone please send me spicy memes my discord account is ############",
-		"wait how do i jump though",
-		"is jumping all there is to this game?",
-		"is admin real? has anybody gotten it?",
-		"you can jummp on other players! omg O.o",
-		"i am disliking this game",
-		"i am liking this game",
-		"oops i fell haha ha xD",
-		"did someone just fly by? are they an admin?",
-		"hey come back here, don't leave me behind!",
-		"nobody asked",
-		"join the smallfish discord!",
-		"visit the smallfish site at smallfi.sh (that's the url!)",
-		"join the smallfish discord!",
-		"visit the smallfish site at smallfi.sh (that's the url!)",
-		"join the smallfish discord!",
-		"visit the smallfish site at smallfi.sh (that's the url!)",
-		"haha wtf the chat censors ur password !! look: #####",
-		"small fish is definitely my favorite s&box development group",
-		"this game is so goooddd",
-		"heard they're adding a 100 new levels soon...",
-		"https://i.imgur.com/h1bFCsH.png",
-		"hamsteria release date january 20th 2023",
-		"lol is everyone a bot?"
+		"i just wanna play normal stud jump",
+		"what is going on!?!?",
+		"what are all these hamsters doing here?",
+		"is this hamsteria?",
+		"what did small fish do now?!?!",
+		"WTF!",
+		"WHAT THE FRICK",
+		"where are the steps",
+		"is this meant to be hard?",
+		"i reached pink! finally!",
+		"hey i had admin where did it go",
+		"guys do not join that other dedicated server, it sucks",
+		"wait, WHAT?!",
+		"HAMSTERS EVERYWHERE",
+		"my pc is burning",
+		"I AM AFRAID OF HAMSTERS",
+		"HAMSTERS INCOMING!!!",
+		"uhhh.... poop...",
+		"lololol",
+		"this is EPIC",
+		"if only i had joined small fish discord to learn about this event"
 	};
 
 	TimeUntil nextMessage = Rand.Float( 30f );
