@@ -30,12 +30,13 @@ public partial class PlayerController : PawnController
 		var wishVelocity = new Vector3( Input.Forward, Input.Left, 0 );
 		if ( wishVelocity != 0 )
 			LastMoveDir = wishVelocity * Rotation.FromYaw( Input.Rotation.Yaw() );
-
+		if ( Host.IsClient ) return;
 		var inSpeed = wishVelocity.Length.Clamp( 0, 1 );
 		var rot = Rotation.FromYaw( Input.Rotation.Yaw() );
 		wishVelocity = wishVelocity.Normal
 			* inSpeed
 			* speed
+			* ((( Pawn as Player).CheckpointReached.Level / 100 ) + 1)
 			* rot;
 
 		// Smoothen the movement a little.

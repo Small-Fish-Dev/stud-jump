@@ -12,7 +12,7 @@ public partial class Hamster : AnimatedEntity
 	public override void Spawn()
 	{
 
-		SetModel( "models/citizenstud/citizenstud.vmdl" );
+		SetModel( "models/hampter/hampter.vmdl" );
 
 		Tags.Clear();
 		Tags.Add( "trigger" );
@@ -26,7 +26,7 @@ public partial class Hamster : AnimatedEntity
 	void computeMovement()
 	{
 
-		body ??= SetupPhysicsFromSphere( PhysicsMotionType.Keyframed, 0, 15f * ( Scale / 2 + 0.5f ) );
+		body ??= SetupPhysicsFromSphere( PhysicsMotionType.Keyframed, 0, 8f );
 
 		Position = Position + Rotation.Forward * Time.Delta * speed;
 		Rotation = Rotation.FromYaw( 180 + MathF.Sin( Time.Now * 10 + randomSeed ) * 15 );
@@ -35,6 +35,13 @@ public partial class Hamster : AnimatedEntity
 		{
 
 			Delete();
+
+		}
+
+		if ( ( Time.Tick + randomSeed ) % 150 == 0 )
+		{
+
+			Sound.FromEntity( "sounds/hampter.sound", this ).SetVolume( 10 );
 
 		}
 
@@ -48,7 +55,7 @@ public partial class Hamster : AnimatedEntity
 		if ( other is Player player )
 		{
 
-			player.Velocity += ( Rotation.Forward * 10000f + Vector3.Up * 1000f ) * Scale;
+			player.Velocity += ( Rotation.Forward * 10000f + Vector3.Up * 1000f ) * Scale / 3;
 
 		}
 
@@ -64,7 +71,7 @@ public partial class Hamster : AnimatedEntity
 			new Hamster()
 			{
 				Position = new Vector3( Rand.Float( Game.StudToInch * 15 * 3 ) + Game.StudToInch * 15 * 116, Rand.Float( Game.StudToInch * -22, Game.StudToInch * 22 ), Game.StudToInch * 0.5f ),
-				Scale = Time.Tick % (60 * spawnEvery * 100) == 0 ? 3f : 1f,
+				Scale = Time.Tick % ( 60 * spawnEvery * 700 ) == 0 ? 27f : ( Time.Tick % (60 * spawnEvery * 30) == 0 ? 9f : 3f ),
 			};
 
 		}
