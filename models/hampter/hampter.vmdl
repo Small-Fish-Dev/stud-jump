@@ -43,6 +43,7 @@
 							exception_list = 
 							[
 								"hamster_003",
+								"hamster_001",
 							]
 						}
 					},
