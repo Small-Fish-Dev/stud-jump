@@ -8,6 +8,7 @@ class AdminCommands : Panel
 	Button flyModeButton;
 	Button invisibleButton;
 	Button studCollisionButton;
+	Button hamsterButton;
 
 	public AdminCommands()
 	{
@@ -19,6 +20,7 @@ class AdminCommands : Panel
 		invisibleButton = container.Add.Button( "Invisible: OFF", "button", () => Invisible() );
 		container.Add.Button( "Jumpscare All", "button", () => JumpscareAll() );
 		studCollisionButton = container.Add.Button( "Stud Collisions: ON", "button", () => StudCollisions() );
+		hamsterButton = container.Add.Button( "Spawn Hamster", "button", () => SpawnHamster() );
 		var resetButton = container.Add.Button( "Reset", "button", () => Reset() );
 		resetButton.Style.FontSize = 28f;
 		resetButton.Style.BackgroundColor = new Color( 0.9f, 0.5f, 0.5f, 1f );
@@ -123,6 +125,32 @@ class AdminCommands : Panel
 		if ( !player.IsAdmin ) return;
 
 		Game.BroadcastJumpscare();
+
+	}
+
+	[ConCmd.Server]
+	public static void SpawnHamster()
+	{
+
+		if ( ConsoleSystem.Caller.Pawn is not Player player ) return;
+		if ( !player.IsAdmin ) return;
+
+		var trace = Trace.Ray( player.EyePosition, player.EyePosition + player.EyeRotation.Forward * 1000f )
+			.WithTag( "solid" )
+			.IncludeClientside()
+			.WithoutTags( "player", "trigger" )
+			.Ignore( player )
+			.Run();
+
+
+		DebugOverlay.Sphere( player.EyePosition, 15f, Color.Blue, 3f );
+		DebugOverlay.Line( player.EyePosition, player.EyePosition + player.EyeRotation.Forward * 50f, Color.Green, 3f );
+		DebugOverlay.Sphere( trace.EndPosition, 15f, Color.Red, 3f );
+
+		new Hamster()
+		{
+			Position = trace.EndPosition
+		};
 
 	}
 
