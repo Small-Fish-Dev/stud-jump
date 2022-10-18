@@ -80,11 +80,15 @@ class AdminCommands : Panel
 		if ( ConsoleSystem.Caller.Pawn is not Player player ) return;
 		if ( !player.IsAdmin ) return;
 
+		if ( player.LastCollision <= 0.5f ) return;
+
 		bool active = Game.Instance.Map.PhysicsBody.Enabled;
 
 		Game.Instance.Map.PhysicsBody.Enabled = !active;
 
 		Game.UpdateStudCollisions( !active );
+
+		player.LastCollision = 0f;
 
 	}
 
@@ -124,7 +128,10 @@ class AdminCommands : Panel
 		if ( ConsoleSystem.Caller.Pawn is not Player player ) return;
 		if ( !player.IsAdmin ) return;
 
+		if ( player.LastJumpscare <= 1.5f ) return;
+
 		Game.BroadcastJumpscare();
+		player.LastJumpscare = 0f;
 
 	}
 
@@ -135,22 +142,19 @@ class AdminCommands : Panel
 		if ( ConsoleSystem.Caller.Pawn is not Player player ) return;
 		if ( !player.IsAdmin ) return;
 
-		var trace = Trace.Ray( player.EyePosition, player.EyePosition + player.EyeRotation.Forward * 1000f )
-			.WithTag( "solid" )
-			.IncludeClientside()
-			.WithoutTags( "player", "trigger" )
+		if ( player.LastHamster <= 0.1f ) return;
+
+		var trace = Trace.Box( new BBox( -5f, 5f ), player.EyePosition, player.EyePosition + player.EyeRotation.Forward * 1000f )
 			.Ignore( player )
 			.Run();
 
-
-		DebugOverlay.Sphere( player.EyePosition, 15f, Color.Blue, 3f );
-		DebugOverlay.Line( player.EyePosition, player.EyePosition + player.EyeRotation.Forward * 50f, Color.Green, 3f );
-		DebugOverlay.Sphere( trace.EndPosition, 15f, Color.Red, 3f );
 
 		new Hamster()
 		{
 			Position = trace.EndPosition
 		};
+
+		player.LastHamster = 0f;
 
 	}
 

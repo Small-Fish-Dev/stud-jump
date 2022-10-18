@@ -16,6 +16,9 @@ public partial class Player : AnimatedEntity
 
 	public ClothingContainer Clothing = new();
 	public bool IsAdmin => CheckpointReached.Level >= 119;
+	public TimeSince LastJumpscare;
+	public TimeSince LastCollision;
+	public TimeSince LastHamster;
 
 	public override void Spawn()
 	{
