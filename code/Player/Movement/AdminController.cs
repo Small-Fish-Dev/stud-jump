@@ -16,16 +16,15 @@ public partial class AdminController : PawnController
 
 		if ( Pawn is not Player pawn ) return;
 
-		EyeRotation = Rotation.Lerp( EyeRotation, Rotation.From( pawn.InputLook ), Time.Delta );
 		EyeLocalPosition = Vector3.Up * (CollisionBox.Maxs.z - 8);
 
 		// Handle wished direction and speed.
 		var wishVelocity = pawn.InputDirection.WithZ( 0 );
 		if ( wishVelocity != 0 )
-			LastMoveDir = wishVelocity * Rotation.From( pawn.InputLook );
+			LastMoveDir = wishVelocity * EyeRotation;
 
 		var inSpeed = wishVelocity.Length.Clamp( 0, 1 );
-		var rot = Rotation.From(pawn.InputLook);
+		var rot = EyeRotation;
 		wishVelocity = wishVelocity.Normal
 			* inSpeed
 			* speed

@@ -25,16 +25,15 @@ public partial class PlayerController : PawnController
 			jumpBoost = (((Pawn as Player).Inventory as BaseInventory).Active as BaseItem)?.JumpBoost ?? 0;
 		}
 
-		EyeRotation = Rotation.Lerp( EyeRotation, Rotation.From( pawn.InputLook ), Time.Delta );
 		EyeLocalPosition = Vector3.Up * (CollisionBox.Maxs.z - 8);
 
 		// Handle wished direction and speed.
 		var wishVelocity = pawn.InputDirection.WithZ( 0 );
 		if ( wishVelocity != 0 )
-			LastMoveDir = wishVelocity * Rotation.FromYaw( Rotation.From( pawn.InputLook ).Yaw() );
+			LastMoveDir = wishVelocity * Rotation.FromYaw( EyeRotation.Yaw() );
 
 		var inSpeed = wishVelocity.Length.Clamp( 0, 1 );
-		var rot = Rotation.FromYaw( Rotation.From( pawn.InputLook ).Yaw() );
+		var rot = Rotation.FromYaw( EyeRotation.Yaw() );
 		wishVelocity = wishVelocity.Normal
 			* inSpeed
 			* speed

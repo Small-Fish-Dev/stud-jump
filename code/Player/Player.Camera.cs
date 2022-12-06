@@ -17,7 +17,6 @@ partial class Player
 			.Radius( 4f )
 			.IncludeClientside()
 			.Run();
-
 		setup.Position = tr.EndPosition;
 		setup.Rotation = pawn.EyeRotation;
 		setup.Viewer = null;

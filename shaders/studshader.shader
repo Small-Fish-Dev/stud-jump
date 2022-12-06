@@ -73,7 +73,7 @@ PS
 	//
 	// Main
 	//
-	PixelOutput MainPs( PixelInput i )
+	float4 MainPs( PixelInput i ) : SV_Target
 	{
 		Material m = GatherMaterial( i );
 		m.Albedo *= Tex2D( g_tTint, float2(0.0f, 0.0f) ).rgb;

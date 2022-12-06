@@ -106,6 +106,8 @@ public partial class Player : AnimatedEntity
 
 		EyePosition = Position
 			+ EyeLocalPosition;
+
+		EyeRotation = Rotation.From( InputLook );
 	}
 
 	public override void Simulate( Client cl )
@@ -191,9 +193,8 @@ public partial class Player : AnimatedEntity
 	{
 		if ( Input.Down( InputButton.SecondaryAttack ) )
 		{
-			InputLook = Input.AnalogLook;
+			InputLook += Input.AnalogLook;
 		}
-
 		InputDirection = Input.AnalogMove;
 	}
 
