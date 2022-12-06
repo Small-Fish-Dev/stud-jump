@@ -31,8 +31,8 @@ partial class Player
 	}
 
 	[Event.BuildInput]
-	private void cameraInput( InputBuilder input )
+	private void cameraInput()
 	{
-		Distance = MathX.Clamp( Distance - input.MouseWheel * 25f * ( 1f + Distance / 100f ), 0f, 1500f );
+		Distance = MathX.Clamp( Distance - Input.MouseWheel * 25f * ( 1f + Distance / 100f ), 0f, 1500f );
 	}
 }

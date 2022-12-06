@@ -9,13 +9,13 @@ public partial class MouseCapture : Panel
 	}
 
 	[Event.BuildInput]
-	private void buildInput( InputBuilder input )
+	private void buildInput()
 	{
 
 		foreach( var panel in FindRootPanel().Children )
 		{
 
-			panel.Style.PointerEvents = input.Down( InputButton.SecondaryAttack )
+			panel.Style.PointerEvents = Input.Down( InputButton.SecondaryAttack )
 				? PointerEvents.None
 				: PointerEvents.All;
 

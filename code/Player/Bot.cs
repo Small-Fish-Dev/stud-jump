@@ -23,13 +23,13 @@ public class StudBot : Bot
 
 	}
 
-	public override void BuildInput( InputBuilder builder )
+	public override void BuildInput()
 	{
 
 		var pawn = Client.Pawn as Player;
 
-		builder.SetButton( InputButton.Jump, false );
-		builder.InputDirection = pawn.Rotation.Forward;
+		Input.SetButton( InputButton.Jump, false );
+		Input.AnalogMove = pawn.Rotation.Forward;
 
 		if ( Client.Pawn.GroundEntity != null )
 		{
@@ -47,7 +47,7 @@ public class StudBot : Bot
 				if ( wallTrace.Hit )
 				{
 
-					builder.SetButton( InputButton.Jump, true );
+					Input.SetButton( InputButton.Jump, true );
 
 				}
 
@@ -81,7 +81,7 @@ public class StudBot : Bot
 
 				float magnetValue = 0.5f + Crazyness / 20f;
 
-				builder.InputDirection = (closestPlayer.Position - pawn.Position).Normal * ( 1 - magnetValue ) + Vector3.Forward * magnetValue;
+				Input.AnalogMove = (closestPlayer.Position - pawn.Position).Normal * ( 1 - magnetValue ) + Vector3.Forward * magnetValue;
 
 			}
 

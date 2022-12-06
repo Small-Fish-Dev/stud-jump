@@ -31,7 +31,7 @@ public partial class PlayerAnimator : PawnAnimator
 	{
 		if ( Local.Pawn is not Player pawn ) return;
 
-		EyeRotation = Input.Rotation;
+		EyeRotation = Rotation.From( pawn.InputLook );
 
 		ComputeAnimation( pawn );
 

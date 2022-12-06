@@ -124,10 +124,10 @@ partial class Game : GameBase
 
     }
 
-    public override void BuildInput(InputBuilder input)
+    public override void BuildInput()
     {
-        Event.Run("buildinput", input);
-        Local.Pawn?.BuildInput(input);
+        Event.Run("buildinput");
+        Local.Pawn?.BuildInput();
     }
 
     public override CameraSetup BuildCamera(CameraSetup camSetup)

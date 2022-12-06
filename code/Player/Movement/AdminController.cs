@@ -14,16 +14,18 @@ public partial class AdminController : PawnController
 	public override void Simulate()
 	{
 
-		EyeRotation = Rotation.Lerp( EyeRotation, Input.Rotation, Time.Delta );
+		if ( Pawn is not Player pawn ) return;
+
+		EyeRotation = Rotation.Lerp( EyeRotation, Rotation.From( pawn.InputLook ), Time.Delta );
 		EyeLocalPosition = Vector3.Up * (CollisionBox.Maxs.z - 8);
 
 		// Handle wished direction and speed.
-		var wishVelocity = new Vector3( Input.Forward, Input.Left, 0 );
+		var wishVelocity = pawn.InputDirection.WithZ( 0 );
 		if ( wishVelocity != 0 )
-			LastMoveDir = wishVelocity * Input.Rotation;
+			LastMoveDir = wishVelocity * Rotation.From( pawn.InputLook );
 
 		var inSpeed = wishVelocity.Length.Clamp( 0, 1 );
-		var rot = Input.Rotation;
+		var rot = Rotation.From(pawn.InputLook);
 		wishVelocity = wishVelocity.Normal
 			* inSpeed
 			* speed

@@ -18,21 +18,23 @@ public partial class PlayerController : PawnController
 
 	public override void Simulate()
 	{
+		if ( Pawn is not Player pawn ) return;
+
 		if ( Host.IsServer )
 		{
 			jumpBoost = (((Pawn as Player).Inventory as BaseInventory).Active as BaseItem)?.JumpBoost ?? 0;
 		}
 
-		EyeRotation = Rotation.Lerp( EyeRotation, Input.Rotation, Time.Delta );
+		EyeRotation = Rotation.Lerp( EyeRotation, Rotation.From( pawn.InputLook ), Time.Delta );
 		EyeLocalPosition = Vector3.Up * (CollisionBox.Maxs.z - 8);
 
 		// Handle wished direction and speed.
-		var wishVelocity = new Vector3( Input.Forward, Input.Left, 0 );
+		var wishVelocity = pawn.InputDirection.WithZ( 0 );
 		if ( wishVelocity != 0 )
-			LastMoveDir = wishVelocity * Rotation.FromYaw( Input.Rotation.Yaw() );
+			LastMoveDir = wishVelocity * Rotation.FromYaw( Rotation.From( pawn.InputLook ).Yaw() );
 
 		var inSpeed = wishVelocity.Length.Clamp( 0, 1 );
-		var rot = Rotation.FromYaw( Input.Rotation.Yaw() );
+		var rot = Rotation.FromYaw( Rotation.From( pawn.InputLook ).Yaw() );
 		wishVelocity = wishVelocity.Normal
 			* inSpeed
 			* speed
@@ -50,8 +52,6 @@ public partial class PlayerController : PawnController
 			// Jumping.
 			if ( Input.Down( InputButton.Jump ) )
 			{
-
-				if ( Pawn is not Player pawn ) return;
 
 				Velocity += Vector3.Up * ( jumpStrength + pawn.RankIndex * 30 );
 

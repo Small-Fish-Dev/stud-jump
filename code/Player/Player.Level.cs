@@ -78,9 +78,9 @@ partial class Player
 	}
 
 
-	private int lastExperience = -1;
-	private int lastRank;
-	[Net] internal int RankIndex
+	[Net] private int lastExperience { get; set; } = -1;
+	[Net] private int lastRank { get; set; }
+	internal int RankIndex
 	{
 		get
 		{

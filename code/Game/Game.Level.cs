@@ -133,7 +133,7 @@ partial class Game
 				var tex = Texture.Create( 1, 1 )
 					.WithData( new[] { col.r, col.g, col.b, (byte)255 } )
 					.Finish();
-				mat.OverrideTexture( "tint", tex );
+				mat.Set( "tint", tex );
 				materials.Add( mat );
 			}
 

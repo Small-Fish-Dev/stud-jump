@@ -183,16 +183,18 @@ public partial class Player : AnimatedEntity
 		UpdateEyePosition();
 	}
 
-	public override void BuildInput( InputBuilder input )
+
+	[ClientInput] public Vector3 InputDirection { get; set; }
+	[ClientInput] public Angles InputLook { get; set; }
+
+	public override void BuildInput()
 	{
-		if ( input.Down( InputButton.SecondaryAttack ) )
+		if ( Input.Down( InputButton.SecondaryAttack ) )
 		{
-			input.ViewAngles += input.AnalogLook;
-			input.ViewAngles.pitch = input.ViewAngles.pitch.Clamp( -89, 89 );
-			input.ViewAngles.roll = 0;
+			InputLook = Input.AnalogLook;
 		}
 
-		input.InputDirection = input.AnalogMove;
+		InputDirection = Input.AnalogMove;
 	}
 
 	TimeSince timeSinceLastFootstep = 0;
@@ -224,20 +226,6 @@ public partial class Player : AnimatedEntity
 	{
 		Log.Info( $"TODO: Buy this {item.Name} for {item.Cost}!" );
 	}
-
-	[ConCmd.Server( "stud_inv", Help = "-1 to get rid of your items" )]
-	public void GetInventorySlot( int number )
-	{
-		if ( ConsoleSystem.Caller.Pawn is not Player player ) return;
-
-		if ( player.Inventory is not BaseInventory inventory ) return;
-
-		if ( number > 0 )
-			inventory.SetActiveSlot( number );
-		else
-			inventory.Active = null;
-	}
-
 	[ClientRpc]
 	public static void sendChat( byte[] data )
 	{
