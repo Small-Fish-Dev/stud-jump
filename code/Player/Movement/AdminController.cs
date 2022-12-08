@@ -21,7 +21,7 @@ public partial class AdminController : PawnController
 		// Handle wished direction and speed.
 		var wishVelocity = pawn.InputDirection.WithZ( 0 );
 		if ( wishVelocity != 0 )
-			LastMoveDir = wishVelocity * EyeRotation;
+			LastMoveDir = wishVelocity * pawn.EyeRotation;
 
 		var inSpeed = wishVelocity.Length.Clamp( 0, 1 );
 		var rot = EyeRotation;

@@ -30,10 +30,9 @@ public partial class PlayerController : PawnController
 		// Handle wished direction and speed.
 		var wishVelocity = pawn.InputDirection.WithZ( 0 );
 		if ( wishVelocity != 0 )
-			LastMoveDir = wishVelocity * Rotation.FromYaw( EyeRotation.Yaw() );
-
+			LastMoveDir = wishVelocity * Rotation.FromYaw( pawn.EyeRotation.Yaw() );
 		var inSpeed = wishVelocity.Length.Clamp( 0, 1 );
-		var rot = Rotation.FromYaw( EyeRotation.Yaw() );
+		var rot = Rotation.FromYaw( pawn.EyeRotation.Yaw() );
 		wishVelocity = wishVelocity.Normal
 			* inSpeed
 			* speed

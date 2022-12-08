@@ -8,7 +8,7 @@ public partial class MouseCapture : Panel
 		
 	}
 
-	[Event.BuildInput]
+	[Event.Tick]
 	private void buildInput()
 	{
 

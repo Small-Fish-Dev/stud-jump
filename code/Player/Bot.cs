@@ -31,7 +31,7 @@ public class StudBot : Bot
 		Input.SetButton( InputButton.Jump, false );
 		Input.AnalogMove = pawn.Rotation.Forward;
 
-		if ( Client.Pawn.GroundEntity != null )
+		if ( pawn.GroundEntity != null )
 		{
 
 			if ( Noise.Perlin( lifeTime * 10f, randSeed, randSeed ) * 2.2f - 0.5f >= (Crazyness / 20f * 1.8f) )

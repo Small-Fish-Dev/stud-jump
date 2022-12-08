@@ -11,7 +11,7 @@ global using System.Threading.Tasks;
 
 namespace Stud;
 
-partial class Game : GameBase
+partial class Game : GameManager
 {
     public static Game Instance { get; private set; }
     static List<long> bannedUsers = new()
@@ -28,7 +28,7 @@ partial class Game : GameBase
 
     public override void ClientJoined(Client cl)
     {
-        if (bannedUsers.Contains(cl.PlayerId))
+        if (bannedUsers.Contains(cl.SteamId))
         {
             cl.Kick();
             return;
@@ -93,7 +93,7 @@ partial class Game : GameBase
 
         var leaderboard = await Leaderboard.FindOrCreate(bucket, false);
 
-        return await leaderboard.Value.GetScore(client.PlayerId);
+        return await leaderboard.Value.GetScore(client.SteamId);
 
     }
 
@@ -130,19 +130,13 @@ partial class Game : GameBase
         Local.Pawn?.BuildInput();
     }
 
-    public override CameraSetup BuildCamera(CameraSetup camSetup)
-    {
-        Local.Pawn?.PostCameraSetup(ref camSetup);
-
-        return camSetup;
-    }
-
     public override void Simulate(Client cl)
     {
         if (!cl.Pawn.IsValid()) return;
         if (!cl.Pawn.IsAuthority) return;
+		if ( cl.Pawn is not Player player ) return;
 
-        cl.Pawn.Simulate(cl);
+        player.Simulate(cl);
     }
 
     public override void FrameSimulate(Client cl)
@@ -151,8 +145,9 @@ partial class Game : GameBase
 
         if (!cl.Pawn.IsValid()) return;
         if (!cl.Pawn.IsAuthority) return;
+		if ( cl.Pawn is not Player player ) return;
 
-        cl.Pawn?.FrameSimulate(cl);
+		player.FrameSimulate(cl);
     }
 
     public override void RenderHud()

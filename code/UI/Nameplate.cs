@@ -19,7 +19,7 @@ class Nameplate : WorldPanel
 		var container = AddChild<Panel>( "container" );
 
 		var avatar = container.AddChild<Panel>( "avatar" );
-		avatar.Style.SetBackgroundImage( $"avatarbig:{ply?.Client?.PlayerId}" );
+		avatar.Style.SetBackgroundImage( $"avatarbig:{ply?.Client?.SteamId}" );
 
 		var lbl = container.AddChild<Label>( "name" );
 		lbl.Text = ply?.Client?.Name ?? "noname";
@@ -29,7 +29,7 @@ class Nameplate : WorldPanel
 		rank.Style.FontColor = ply?.CurrentRank.Color;
 	}
 
-	[Event.Frame]
+	[Event.Client.Frame]
 	private void onFrame()
 	{
 		if ( ply == null || !ply.IsValid )
@@ -40,7 +40,7 @@ class Nameplate : WorldPanel
 
 		var transform = ply.Transform;
 		transform.Position += Vector3.Up * 84f;
-		transform.Rotation = Rotation.LookAt( -CurrentView.Rotation.Forward );
+		transform.Rotation = Rotation.LookAt( -Camera.Rotation.Forward );
 
 		Transform = transform;
 

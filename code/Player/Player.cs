@@ -7,7 +7,6 @@ public partial class Player : AnimatedEntity
 	public static readonly HashSet<string> BannedWords = new() { "simple", "complicated", "confusing" };
 
 	[Net, Predicted] public PawnController Controller { get; set; }
-	[Net, Predicted] public PawnAnimator Animator { get; set; }
 
 	public IBaseInventory Inventory { get; protected set; }
 	public HashSet<string> OwnedItems { get; set; } = new();
@@ -27,7 +26,6 @@ public partial class Player : AnimatedEntity
 		Inventory.Add( new JumpCoil() );
 
 		Controller ??= new PlayerController();
-		Animator ??= new PlayerAnimator();
 
 		SetModel( "models/citizenstud/citizenstud.vmdl" );
 
@@ -80,25 +78,26 @@ public partial class Player : AnimatedEntity
 
 	public void ComputeAnimation()
 	{
+		bool midair = GroundEntity == null;
+		bool moving = Velocity.Length >= 5f;
 
-		var pawn = this;
+		CurrentSequence.Name = midair ? "jump" : moving ? "run" : "idle";
 
-		bool midair = pawn.GroundEntity == null;
-		bool moving = pawn.Velocity.Length >= 5f;
-
-		pawn.CurrentSequence.Name = midair ? "jump" : moving ? "run" : "idle";
-
-		if ( pawn.CurrentSequence.Name != currentAnimation )
+		if ( CurrentSequence.Name != currentAnimation )
 		{
 
-			currentAnimation = pawn.CurrentSequence.Name;
+			currentAnimation = CurrentSequence.Name;
 			animationStart = 0f;
 
 		}
 
-		pawn.CurrentSequence.Time = midair ? Math.Min( animationStart, pawn.CurrentSequence.Duration ) : animationStart % pawn.CurrentSequence.Duration;
+		CurrentSequence.Time = midair ? Math.Min( animationStart, CurrentSequence.Duration ) : animationStart % CurrentSequence.Duration;
 
 	}
+
+	[Net] public Vector3 EyePosition { get; set; }
+	public Vector3 EyeLocalPosition = new Vector3( 0f, 0f, 64f );
+	[Net] public Rotation EyeRotation { get; set; }
 
 	public void UpdateEyePosition()
 	{
@@ -107,12 +106,12 @@ public partial class Player : AnimatedEntity
 		EyePosition = Position
 			+ EyeLocalPosition;
 
-		EyeRotation = Rotation.From( InputLook );
+		EyeRotation = InputLook.ToRotation();
 	}
 
 	public override void Simulate( Client cl )
 	{
-		Controller?.Simulate( cl, this, Animator );
+		Controller?.Simulate( cl, this );
 
 		if ( Host.IsServer )
 			UpdateEyePosition();
@@ -139,6 +138,25 @@ public partial class Player : AnimatedEntity
 			}
 
 		}
+
+		if ( Controller is PlayerController plyController )
+		{
+
+			var rot = Rotation.LookAt( plyController.LastMoveDir.WithZ( 0f ), Vector3.Up );
+			Rotation = Rotation.Lerp( Rotation, rot, Time.Delta * 10f );
+
+		}
+
+		if ( Controller is AdminController admController )
+		{
+
+			var rot = Rotation.LookAt( admController.LastMoveDir.WithZ( 0f ), Vector3.Up );
+			Rotation = Rotation.Lerp( Rotation, rot, Time.Delta * 10f );
+
+		}
+
+
+		ComputeAnimation();
 
 	}
 
@@ -179,10 +197,33 @@ public partial class Player : AnimatedEntity
 
 	}
 
+	public float Distance { get; set; } = 150f;
+	private float lastDist;
+
 	public override void FrameSimulate( Client cl )
 	{
-		Controller?.FrameSimulate( cl, this, Animator );
+		Controller?.FrameSimulate( cl, this );
+		ComputeAnimation();
 		UpdateEyePosition();
+		Distance = MathX.Clamp( Distance - Input.MouseWheel * 25f * (1f + Distance / 100f), 0f, 1500f );
+
+		lastDist = MathX.LerpTo( lastDist, Distance, 10f * Time.Delta );
+		var tr = Trace.Ray( new Ray( EyePosition, EyeRotation.Backward ), lastDist )
+			.Ignore( this )
+			.WithoutTags( "player" )
+			.Radius( 4f )
+			.IncludeClientside()
+			.Run();
+		Camera.Rotation = EyeRotation;
+		Camera.Position = tr.EndPosition;
+		Camera.FieldOfView = Local.UserPreference.FieldOfView;
+		Camera.ZNear = 4f;
+		Camera.ZFar = 5000.0f;
+
+		var alpha = MathX.Clamp( Camera.Position.Distance( EyePosition ) / 100f, 0f, 1.1f ) - 0.1f;
+		RenderColor = Color.White.WithAlpha( alpha );
+		foreach ( var child in Children )
+			if ( child is ModelEntity ent ) ent.RenderColor = RenderColor;
 	}
 
 

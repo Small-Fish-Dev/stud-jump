@@ -27,7 +27,7 @@ class AdminCommands : Panel
 
 	}
 
-	[Event.BuildInput]
+	[Event.Tick]
 	private void buildInput()
 	{
 		Style.PointerEvents = Input.Down( InputButton.SecondaryAttack )
