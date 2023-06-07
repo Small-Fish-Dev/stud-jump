@@ -4,12 +4,12 @@
 @inherits RootPanel
 
 <style>
-    hud {
+    HUD {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-        pointer-events: none;
+        pointer-events: all;
         cursor: default;
         width: 100%;
         height: 100%;
@@ -37,7 +37,7 @@
         }
     }
     
-    .nameplate {
+    Nameplate {
         position: absolute;
         text-align: center;
         justify-content: center;
@@ -83,7 +83,6 @@
         font-size: 22px;
         text-stroke: 4px black;
         text-shadow: 2px 2px 4px black;
-        pointer-events: none;
     
         .bar {
             position: absolute;
@@ -94,7 +93,6 @@
             z-index: 4;
             //transition: all 0.3s ease-out;
             z-index: 1;
-            pointer-events: none;
     
             .grid {
                 position: absolute;
@@ -104,7 +102,6 @@
                 height: 100%;
                 width: 100%;
                 z-index: 2;
-                pointer-events: none;
             }
         }
     
@@ -112,7 +109,6 @@
             position: absolute;
             text-align: left;
             top: 30px;
-            pointer-events: none;
         }
     
         .nextRank {
@@ -121,7 +117,6 @@
             text-align: right;
             transform: translateX( -100% );
             top: 30px;
-            pointer-events: none;
         }
     }
     
@@ -133,7 +128,6 @@
         opacity: 1;
         height: 40px;
         aspect-ratio: 1;
-        pointer-events: none;
     }
     
     MuteButton {
@@ -163,7 +157,6 @@
         text-shadow: 2px 2px 2px black;
         transition: opacity 0.5s ease-in;
         box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0.2);
-        pointer-events: none;
     
         .container {
             position: absolute;
@@ -174,7 +167,6 @@
             flex-direction: column;
             overflow: scroll;
             justify-content: flex-end;
-            pointer-events: none;
     
             .textContainer {
                 flex-wrap: wrap;
@@ -182,7 +174,6 @@
                 flex-shrink: 0;
                 flex-grow: 0;
                 padding-bottom: 5px;
-                pointer-events: none;
             }
         }
     
@@ -198,7 +189,6 @@
             background-color: rgb(40, 40, 40);
             color: rgb(200, 200, 200);
             padding: 8px;
-            pointer-events: none;
         }
     }
     
@@ -237,7 +227,6 @@
                 width: 100%;
                 background-color: rgba( 20, 20, 40, 0.8 );
                 border-radius: 10px 10px 0px 0px;
-                pointer-events: none;
             }
     
             .button {
@@ -281,7 +270,6 @@
 </style>
 
 <root>
-    <MouseCapture></MouseCapture>
     <ExperienceBar></ExperienceBar>
     <MuteButton></MuteButton>
     <Chat></Chat>
@@ -291,8 +279,12 @@
 
     public static HUD Instance { get; set; }
 
+    public HUD()
+    {
+        Instance = this;
+    }
+
     [Event.Hotload]
-    [Event("start")]
     private static void createHUD()
     {
         if ( Sandbox.Game.IsServer ) return;
@@ -326,6 +318,36 @@
 
         adminMenu.Delete();
 
+    }
+
+    public override void Tick()
+    {
+        base.Tick();
+
+        /*if (!Input.Down("LockMouse"))
+        {
+            Style.PointerEvents = PointerEvents.All;
+            Style.Dirty();
+        }*/
+        DebugOverlay.ScreenText($"{Style.PointerEvents} {(Input.Down("LockMouse"))}");
+    }
+
+    protected override void OnMouseDown(MousePanelEvent e)
+    {
+        base.OnMouseDown(e);
+
+        /*if ((e.MouseButton & MouseButtons.Right) != 0)
+        {
+            Style.PointerEvents = PointerEvents.None;
+            Style.Dirty();
+            Log.Info("with the creeper with the creeper");
+        }*/
+    }
+
+    [ConCmd.Admin()]
+    static void LockMouse(bool l)
+    {
+        Instance.Style.PointerEvents = l ? PointerEvents.All : PointerEvents.None;
     }
 
 }

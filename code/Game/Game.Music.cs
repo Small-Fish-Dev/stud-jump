@@ -6,30 +6,21 @@ public partial class Game
 	static Sound backgroundMusic;
 	public static bool MusicPlaying = true;
 
+	public void StartMusic()
+	{
+		if (!Sandbox.Game.IsClient)
+			return;
+
+		backgroundMusic = Sound.FromScreen("goumi-remix");
+	}
+
 	[GameEvent.Tick.Client]
 	public void LoadMusic()
 	{
+		if (!backgroundMusic.IsPlaying)
+			StartMusic();
 
-		if ( MusicPlaying )
-		{
-
-			if ( !backgroundMusic.IsPlaying )
-			{
-
-				backgroundMusic = Sound.FromScreen( "goumi-remix" ); // You cannot stop it.
-
-			}
-
-			backgroundMusic.SetVolume( 1f );
-
-		}
-		else
-		{
-
-			backgroundMusic.SetVolume( 0f );
-
-		}
-
+		backgroundMusic.SetVolume(MusicPlaying ? 1f : 0f);
 	}
 
 }

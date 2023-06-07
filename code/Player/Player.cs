@@ -198,10 +198,10 @@ public partial class Player : AnimatedEntity
 
     public override void BuildInput()
     {
-        if (!Input.UsingMouse || Input.Down("LockMouse"))
-        {
+        //if (!Input.UsingMouse || Input.Down("LockMouse"))
+        //{
             InputLook += Input.AnalogLook;
-        }
+        //}
 
         InputDirection = Input.AnalogMove;
     }

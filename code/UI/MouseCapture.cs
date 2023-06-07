@@ -2,7 +2,7 @@
 
 public partial class MouseCapture : Panel
 {
-	public MouseCapture()
+	/*public MouseCapture()
 	{
 		Style.PointerEvents = PointerEvents.All;
 		
@@ -15,12 +15,15 @@ public partial class MouseCapture : Panel
 		foreach( var panel in FindRootPanel().Children )
 		{
 
-			panel.Style.PointerEvents = Input.Down("LockMouse")
+			panel.Style.PointerEvents = 
 				? PointerEvents.None
 				: PointerEvents.All;
 
 		}
 
-	}
+		if (Input.Down("LockMouse"))
+			Input.AnalogLook = Angles.Zero;
+
+	}*/
 }
 

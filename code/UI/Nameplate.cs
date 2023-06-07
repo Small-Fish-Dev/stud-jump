@@ -14,7 +14,6 @@ class Nameplate : WorldPanel
 		var height = 200f;
 		PanelBounds = new Rect( -width / 2f, -height / 2f, width, height );
 		StyleSheet = HUD.Instance.StyleSheet;
-		AddClass( "nameplate" );
 
 		var container = AddChild<Panel>( "container" );
 

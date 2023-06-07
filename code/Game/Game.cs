@@ -22,8 +22,12 @@ partial class Game : GameManager
     public Game()
     {
         Instance = this;
+        if (Sandbox.Game.IsClient)
+            _ = new HUD();
         Event.Run("start");
         GenerateLevel();
+
+        StartMusic();
     }
 
     public override void ClientJoined(IClient cl)
