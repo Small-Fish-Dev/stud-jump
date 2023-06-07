@@ -1,6 +1,7 @@
 ﻿namespace Stud;
 
-[Library("stud_jumpcoil", Title = "Jump Coil")]
+[Library("stud_jumpcoil")]
+[Title("Jump Coil")]
 public class JumpCoil : BaseItem
 {
 	public override float Cost => 100.0f;

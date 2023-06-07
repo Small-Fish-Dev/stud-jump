@@ -1,7 +1,7 @@
 ﻿global using Sandbox;
 global using Sandbox.UI;
 global using Sandbox.UI.Construct;
-global using SandboxEditor;
+global using Editor;
 global using System;
 global using System.Collections.Generic;
 global using System.ComponentModel.DataAnnotations;
@@ -26,7 +26,7 @@ partial class Game : GameManager
         GenerateLevel();
     }
 
-    public override void ClientJoined(Client cl)
+    public override void ClientJoined(IClient cl)
     {
         if (bannedUsers.Contains(cl.SteamId))
         {
@@ -43,18 +43,18 @@ partial class Game : GameManager
         ply.LoadLevel();
     }
 
-    public override void ClientDisconnect(Client cl, NetworkDisconnectionReason reason)
+    public override void ClientDisconnect(IClient cl, NetworkDisconnectionReason reason)
     {
         cl.Pawn?.Delete();
         cl.Pawn = null;
     }
 
-    public override bool CanHearPlayerVoice(Client from, Client to)
+    public override bool CanHearPlayerVoice(IClient from, IClient to)
     {
         return true;
     }
 
-    public override void OnVoicePlayed(Client cl) { }
+    public override void OnVoicePlayed(IClient cl) { }
 
     public override void Shutdown()
     {
@@ -66,55 +66,59 @@ partial class Game : GameManager
     {
         base.OnDestroy();
 
-        Local.Hud?.Delete(true);
-        Local.Hud = null;
+        //Sandbox.Game.LocalClient.Hud?.Delete(true);
+        //Sandbox.Game.LocalClient.Hud = null;
     }
 
     public override void PostLevelLoaded()
     {
 
-        if (Host.IsClient) return;
+        if (Sandbox.Game.IsClient) return;
 
         CreateBots();
 
     }
 
-    public static async void SubmitScore(string bucket, Client client, int score)
+    public static async void SubmitScore(string bucket, IClient client, int score)
     {
 
-        var leaderboard = await Leaderboard.FindOrCreate(bucket, false);
+        //var leaderboard = await Leaderboard.FindOrCreate(bucket, false);
 
-        await leaderboard.Value.Submit(client, score);
+        //await leaderboard.Value.Submit(client, score);
+
+        Log.Info("Leaderboard is NO-OP");
+        client.SetInt(bucket, score);
 
     }
 
-    public static async Task<LeaderboardEntry?> GetScore(string bucket, Client client)
+    public static int GetScore(string bucket, IClient client)
     {
 
-        var leaderboard = await Leaderboard.FindOrCreate(bucket, false);
+        //var leaderboard = await Leaderboard.FindOrCreate(bucket, false);
 
-        return await leaderboard.Value.GetScore(client.SteamId);
+        //return await leaderboard.Value.GetScore(client.SteamId);
+
+        Log.Info("Leaderboard is NO-OP");
+        return client.GetInt(bucket, 0);
 
     }
 
     public void CreateBots()
     {
-
-        var allClothing = ResourceLibrary.GetAll<Clothing>();
-        int randAmount = Rand.Int(4, 8);
+        var allClothing = ResourceLibrary.GetAll<Clothing>().ToArray();
+        int randAmount = Sandbox.Game.Random.Int(4, 8);
 
         for (int i = 0; i < randAmount; i++)
         {
-
-            var bot = new StudBot(Rand.Float(4));
+            var bot = new StudBot(Sandbox.Game.Random.Float(4));
             Player pawn = bot.Client.Pawn as Player;
 
-            var randClothing = Rand.Int(12, 24);
+            var randClothing = Sandbox.Game.Random.Int(12, 24);
 
             for (int r = 0; r < randClothing; r++)
             {
 
-                pawn.Clothing.Toggle(allClothing.ElementAt(new Random().Next(allClothing.Count())));
+                pawn.Clothing.Toggle(Sandbox.Game.Random.FromArray<Clothing>(allClothing));
 
             }
 
@@ -124,13 +128,7 @@ partial class Game : GameManager
 
     }
 
-    public override void BuildInput()
-    {
-        Event.Run("buildinput");
-        Local.Pawn?.BuildInput();
-    }
-
-    public override void Simulate(Client cl)
+    public override void Simulate(IClient cl)
     {
         if (!cl.Pawn.IsValid()) return;
         if (!cl.Pawn.IsAuthority) return;
@@ -139,19 +137,14 @@ partial class Game : GameManager
         player.Simulate(cl);
     }
 
-    public override void FrameSimulate(Client cl)
+    public override void FrameSimulate(IClient cl)
     {
-        Host.AssertClient();
+        Sandbox.Game.AssertClient();
 
         if (!cl.Pawn.IsValid()) return;
         if (!cl.Pawn.IsAuthority) return;
 		if ( cl.Pawn is not Player player ) return;
 
 		player.FrameSimulate(cl);
-    }
-
-    public override void RenderHud()
-    {
-        base.RenderHud();
     }
 }

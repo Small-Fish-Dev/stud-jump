@@ -21,7 +21,7 @@ public class ExperienceBar : Panel
 	public override void Tick()
 	{
 
-		if ( Local.Pawn is not Player pawn ) return;
+		if ( Sandbox.Game.LocalPawn is not Player pawn ) return;
 
 		string rankColor = pawn.CurrentRank.Color.Hex;
 		string darkColor = new Color( pawn.CurrentRank.Color.r - 0.3f, pawn.CurrentRank.Color.g - 0.3f, pawn.CurrentRank.Color.b - 0.3f ).Hex;
@@ -70,7 +70,7 @@ public class ExperienceBar : Panel
 			float randSize = (float)(new Random().Next( 3, 7 )) / 10f;
 			float randSpeed = (float)(new Random().Next( 5, 20 )) / 10f;
 
-			float randPos = Rand.Float( Box.Rect.Width );
+			float randPos = Sandbox.Game.Random.Float( Box.Rect.Width );
 
 			var star = new StarParticle( randLife, randSize, randSpeed, null, new Vector2( 0f, 2f ) );
 			star.Style.Left = Length.Pixels( ( bar.Box.Rect.TopLeft.x  + randPos ) * Parent.ScaleFromScreen );

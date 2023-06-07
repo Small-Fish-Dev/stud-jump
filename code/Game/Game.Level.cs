@@ -126,7 +126,7 @@ partial class Game
 			var pos = new Vector3( (i + 1) * (size + StudToInch) - StudToInch * 2f, 0, totalHeight + StudToInch / 4f );
 
 			var mat = defaultMat.CreateCopy();
-			if ( Host.IsClient )
+			if ( Sandbox.Game.IsClient )
 			{
 				var hsv = new ColorHsv( totalHeight, 1f, 1f );
 				var col = hsv.ToColor().ToColor32();
@@ -149,7 +149,7 @@ partial class Game
 
 			meshes.Add( mesh );
 
-			if ( Host.IsServer )
+			if ( Sandbox.Game.IsServer )
 			{
 				var checkpoint = new Checkpoint();
 				checkpoint.Position = pos + point.z * Vector3.Up;

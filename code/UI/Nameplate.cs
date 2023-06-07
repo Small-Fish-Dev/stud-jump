@@ -52,7 +52,7 @@ class Nameplate : WorldPanel
 	[Event.Tick.Client]
 	private static void onTick()
 	{
-		var players = Client.All.Select( cl => cl.Pawn as Player );
+		var players = Sandbox.Game.Clients.Select( cl => cl.Pawn as Player );
 
 		foreach( var player in players )
 		{

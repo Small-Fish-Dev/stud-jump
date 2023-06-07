@@ -20,7 +20,7 @@ public partial class PlayerController : PawnController
 	{
 		if ( Pawn is not Player pawn ) return;
 
-		if ( Host.IsServer )
+		if ( Sandbox.Game.IsServer )
 		{
 			jumpBoost = (((Pawn as Player).Inventory as BaseInventory).Active as BaseItem)?.JumpBoost ?? 0;
 		}
@@ -53,7 +53,7 @@ public partial class PlayerController : PawnController
 
 				Velocity += Vector3.Up * ( jumpStrength + pawn.RankIndex * 30 );
 
-				if ( Host.IsServer )
+				if ( Sandbox.Game.IsServer )
 				{
 
 					pawn.Experience += 1 + (int)(pawn.RankIndex / 5f);

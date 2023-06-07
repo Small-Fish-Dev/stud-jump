@@ -7,12 +7,12 @@
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",
-  "ResourcePaths": [
-    "/ui/*"
-  ],
+  "Resources": "/ui/*",
+  "MenuResources": null,
   "HasCode": true,
   "CodePath": "/code/",
-  "RootNamespace": null,
+  "PackageReferences": [],
+  "EditorReferences": null,
   "Metadata": {
     "MaxPlayers": 64,
     "MinPlayers": 1,
@@ -84,6 +84,8 @@
     "Summary": "Jump all the steps to reach the end and receive admin!",
     "Description": "In this (Roblox inspired) experience, your best friend is spacebar, keep jumping to reach the next checkpoint, gain XP to level up, and use other players to make it to the top!\n\nAll progress is saved and will load on any lobby/server, this goes for Admin too!\nAbuse the following admin powers:\n-Flight Mode\n-Invisible Mode\n-Jumpscare All\n-Make everyone fall\n-Spawn an annoying critter\nand more!\n\n[Warning: Progress isn\u0027t stored in Tools Mode]",
     "Public": true,
-    "ReplaceTags": "roblox stud jump parkour"
+    "ReplaceTags": "roblox stud jump parkour",
+    "CsProjName": "",
+    "HttpAllowList": null
   }
 }

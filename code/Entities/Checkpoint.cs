@@ -43,7 +43,7 @@ public partial class Checkpoint : ModelEntity
 	public void Reached( Player player )
 	{
 
-		if ( IsServer && (player.CheckpointReached == null || player.CheckpointReached.Level < Level) )
+		if ( Sandbox.Game.IsServer && (player.CheckpointReached == null || player.CheckpointReached.Level < Level) )
 		{
 
 			player.CheckpointReached = this;
@@ -53,7 +53,7 @@ public partial class Checkpoint : ModelEntity
 
 			CheckpointAnimation( To.Single( player.Client ) );
 
-			if ( !Host.IsToolsEnabled )
+			if ( !Sandbox.Game.IsEditor )
 			{
 
 				Game.SubmitScore( "Studs", player.Client, Level );

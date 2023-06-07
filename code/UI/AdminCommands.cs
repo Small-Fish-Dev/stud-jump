@@ -39,7 +39,7 @@ class AdminCommands : Panel
 	public override void Tick()
 	{
 
-		if ( Local.Pawn is not Player player ) return;
+		if ( Sandbox.Game.LocalPawn is not Player player ) return;
 
 		flyModeButton.SetText( $"Fly Mode: {(player.Controller is AdminController ? "ON" : "OFF")}" );
 		invisibleButton.SetText( $"Invisible: {(!player.EnableDrawing ? "ON" : "OFF")}" );

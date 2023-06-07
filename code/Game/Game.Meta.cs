@@ -1,14 +1,12 @@
 ﻿global using Sandbox;
 global using Sandbox.UI;
 global using Sandbox.UI.Construct;
+global using Editor;
 global using System;
 global using System.Collections.Generic;
 global using System.Linq;
-global using System.Text.Json.Serialization;
 global using System.IO;
 global using System.Threading.Tasks;
-global using System.Text.Json;
-global using SandboxEditor;
 global using System.ComponentModel.DataAnnotations;
 
 namespace Stud;
@@ -108,7 +106,7 @@ public static class DevCommands
 	public static void AntiCheat()
 	{
 
-		if ( Global.TimeScale > 1.1f ) // Only client sees the difference in timescale?? I really tried
+		if ( Sandbox.Game.TimeScale > 1.1f ) // Only client sees the difference in timescale?? I really tried
 		{
 
 			Log.Warning( "Nice try smart guy, set the time scale back to 1" );

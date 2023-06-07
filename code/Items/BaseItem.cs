@@ -22,6 +22,6 @@ public abstract class BaseItem : BaseCarriable
 		if ( Cost == 0 )
 			return true;
 
-		return (Owner as Player).OwnedItems.Contains( TypeLibrary.GetDescription( GetType() ).Title );
+		return (Owner as Player).OwnedItems.Contains( DisplayInfo.For(this).Name );
 	}
 }

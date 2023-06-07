@@ -53,7 +53,7 @@ partial class Player
 		get => experience; 
 		set
 		{
-			Host.AssertServer();
+			Sandbox.Game.AssertServer();
 
 			Event.Run( "onExperience", this, value - experience );
 			experience = value;
@@ -61,7 +61,7 @@ partial class Player
 			if ( !Client.IsBot )
 			{
 
-				if ( !Host.IsToolsEnabled )
+				if ( !Sandbox.Game.IsEditor )
 				{
 
 					Game.SubmitScore( "Experience", Client, experience );
@@ -100,8 +100,12 @@ partial class Player
 
 	private void OnexperienceChanged( int oldValue, int newValue )
 	{
+		CallExperienceChange(oldValue, newValue);
+	}
 
-		if ( this != Local.Pawn as Player ) return;
+	[ClientRpc]
+	private void CallExperienceChange(int oldValue, int newValue)
+	{
 
 		Event.Run( "onExperience", this, newValue - oldValue );
 
@@ -111,6 +115,5 @@ partial class Player
 			Event.Run( "levelUp", this );
 
 		}
-
 	}
 }

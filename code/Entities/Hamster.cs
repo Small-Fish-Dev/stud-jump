@@ -1,11 +1,12 @@
-﻿using System.Text;
+﻿using Sandbox.Internal;
+using System.Text;
 
 namespace Stud;
 
 public partial class Hamster : AnimatedEntity
 {
 
-	int randomSeed = Rand.Int( 99999 );
+	int randomSeed = Sandbox.Game.Random.Int( 99999 );
 	float speed => 300f;
 
 	public override void Spawn()
@@ -44,7 +45,7 @@ public partial class Hamster : AnimatedEntity
 
 		}
 
-		if ( ( Time.Tick + randomSeed ) % 60 == 0 && Host.IsClient )
+		if ( ( Time.Tick + randomSeed ) % 60 == 0 && Sandbox.Game.IsClient )
 		{
 
 			
@@ -57,7 +58,7 @@ public partial class Hamster : AnimatedEntity
 	public override void StartTouch( Entity other )
 	{
 
-		if ( Host.IsClient ) return;
+		if ( Sandbox.Game.IsClient ) return;
 
 		if ( other is Player player )
 		{
