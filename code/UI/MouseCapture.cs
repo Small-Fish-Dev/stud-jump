@@ -8,14 +8,14 @@ public partial class MouseCapture : Panel
 		
 	}
 
-	[Event.Tick]
+	[GameEvent.Tick]
 	private void buildInput()
 	{
 
 		foreach( var panel in FindRootPanel().Children )
 		{
 
-			panel.Style.PointerEvents = Input.Down( InputButton.SecondaryAttack )
+			panel.Style.PointerEvents = Input.Down("LockMouse")
 				? PointerEvents.None
 				: PointerEvents.All;
 

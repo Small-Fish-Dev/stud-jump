@@ -25,9 +25,10 @@ public class StudBot : Bot
 
     public override void BuildInput()
     {
-        var pawn = Client.Pawn as Player;
+        if (Client.Pawn is not Player pawn)
+            return;
 
-        Input.SetButton(InputButton.Jump, false);
+        Input.SetAction("Jump", false);
         Input.AnalogMove = pawn.Rotation.Forward;
 
         if (pawn.GroundEntity is null) return;
@@ -43,7 +44,7 @@ public class StudBot : Bot
 
             if (wallTrace.Hit)
             {
-                Input.SetButton(InputButton.Jump, true);
+                Input.SetAction("Jump", true);
             }
         }
 
@@ -73,6 +74,8 @@ public class StudBot : Bot
             Input.AnalogMove = (closestPlayer.Position - pawn.Position).Normal * (1 - magnetValue) +
                                Vector3.Forward * magnetValue;
         }
+        
+        DebugOverlay.Line(pawn.Position, pawn.Position + Input.AnalogMove * 100f);
     }
 
     public static string[] BotPhrases = new string[]

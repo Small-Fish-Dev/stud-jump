@@ -29,7 +29,7 @@ class Nameplate : WorldPanel
 		rank.Style.FontColor = ply?.CurrentRank.Color;
 	}
 
-	[Event.Client.Frame]
+	[GameEvent.Client.Frame]
 	private void onFrame()
 	{
 		if ( ply == null || !ply.IsValid )
@@ -49,7 +49,7 @@ class Nameplate : WorldPanel
 		rank.Style.FontColor = ply?.CurrentRank.Color;
 	}
 
-	[Event.Tick.Client]
+	[GameEvent.Tick.Client]
 	private static void onTick()
 	{
 		var players = Sandbox.Game.Clients.Select( cl => cl.Pawn as Player );

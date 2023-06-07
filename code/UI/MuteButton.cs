@@ -21,7 +21,7 @@ public class MuteButton : Button
 
 	}
 
-	[Event.Tick]
+	[GameEvent.Tick]
 	public void MuteUnmute()
 	{
 

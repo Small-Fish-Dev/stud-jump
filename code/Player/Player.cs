@@ -61,7 +61,7 @@ public partial class Player : AnimatedEntity
         ResetInterpolation();
     }
 
-    [Event.Tick.Client]
+    [GameEvent.Tick.Client]
     public void AnimateOthers() // The PlayerAnimator doesn't play the jump animation?
     {
         if (Sandbox.Game.LocalPawn == this) return;
@@ -142,7 +142,7 @@ public partial class Player : AnimatedEntity
         ComputeAnimation();
     }
 
-    public async void LoadExperience()
+    public void LoadExperience()
     {
         var result = Game.GetScore("Experience", Client);
 
@@ -150,7 +150,7 @@ public partial class Player : AnimatedEntity
         Log.Info($"{Client.Name}'s Experience ({Experience}) was fetched.");
     }
 
-    public async void LoadLevel()
+    public void LoadLevel()
     {
         var studs = Game.GetScore("Studs", Client);
 
@@ -198,7 +198,7 @@ public partial class Player : AnimatedEntity
 
     public override void BuildInput()
     {
-        if (Input.Down(InputButton.SecondaryAttack))
+        if (!Input.UsingMouse || Input.Down("LockMouse"))
         {
             InputLook += Input.AnalogLook;
         }

@@ -31,9 +31,9 @@ public partial class AdminController : PawnController
 			* rot;
 
 		// Smoothen the movement a little.
-		Velocity = Vector3.Lerp( Velocity, wishVelocity, 15f * Time.Delta ) + new Vector3( 0f, 0f, Input.Down( InputButton.Jump ) ? speed / 3 : Input.Down( InputButton.Duck ) ? -speed / 3 : 0 );
+		Velocity = Vector3.Lerp( Velocity, wishVelocity, 15f * Time.Delta ) + new Vector3( 0f, 0f, Input.Down( "Jump" ) ? speed / 3 : Input.Down( "Duck" ) ? -speed / 3 : 0 );
 
-		Velocity *= Input.Down( InputButton.Run ) ? 1.4f : 1f;
+		Velocity *= Input.Down( "Run" ) ? 1.4f : 1f;
 		// Get and set new position according to velocity.
 		var helper = new MoveHelper( Position, Velocity );
 		helper.Trace = helper.Trace.Size( CollisionBox.Mins, CollisionBox.Maxs )

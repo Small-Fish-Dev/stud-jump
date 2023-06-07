@@ -79,7 +79,7 @@ partial class Game : GameManager
 
     }
 
-    public static async void SubmitScore(string bucket, IClient client, int score)
+    public static void SubmitScore(string bucket, IClient client, int score)
     {
 
         //var leaderboard = await Leaderboard.FindOrCreate(bucket, false);

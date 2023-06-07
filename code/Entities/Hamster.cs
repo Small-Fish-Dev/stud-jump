@@ -24,7 +24,7 @@ public partial class Hamster : AnimatedEntity
 	}
 
 
-	[Event.Tick.Server]
+	[GameEvent.Tick.Server]
 	void computeMovement()
 	{
 

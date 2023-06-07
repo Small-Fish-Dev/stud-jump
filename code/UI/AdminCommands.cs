@@ -27,10 +27,10 @@ class AdminCommands : Panel
 
 	}
 
-	[Event.Tick]
+	[GameEvent.Tick]
 	private void buildInput()
 	{
-		Style.PointerEvents = Input.Down( InputButton.SecondaryAttack )
+		Style.PointerEvents = Input.Down( "LockMouse" )
 			? PointerEvents.None
 			: PointerEvents.All;
 

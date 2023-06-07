@@ -102,7 +102,7 @@ public static class DevCommands
 
 	}
 
-	[Event.Tick.Client]
+	[GameEvent.Tick.Client]
 	public static void AntiCheat()
 	{
 

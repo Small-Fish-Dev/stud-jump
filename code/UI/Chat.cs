@@ -72,7 +72,7 @@ class Chat : Panel
 		else
 			Style.Opacity = 1f;
 
-		if ( Sandbox.Input.Released( InputButton.Chat ) )
+		if ( Input.Released( "Chat" ) )
 			textEntry.Focus();
 	}
 }

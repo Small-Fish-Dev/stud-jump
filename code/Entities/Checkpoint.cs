@@ -90,7 +90,7 @@ public partial class Checkpoint : ModelEntity
 
 	}
 
-	[Event.Tick.Client]
+	[GameEvent.Tick.Client]
 	private void animateModel()
 	{
 

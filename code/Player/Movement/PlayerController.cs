@@ -22,7 +22,7 @@ public partial class PlayerController : PawnController
 
 		if ( Sandbox.Game.IsServer )
 		{
-			jumpBoost = (((Pawn as Player).Inventory as BaseInventory).Active as BaseItem)?.JumpBoost ?? 0;
+			jumpBoost = ((pawn.Inventory as BaseInventory).Active as BaseItem)?.JumpBoost ?? 0;
 		}
 
 		EyeLocalPosition = Vector3.Up * (CollisionBox.Maxs.z - 8);
@@ -48,7 +48,7 @@ public partial class PlayerController : PawnController
 		else
 		{
 			// Jumping.
-			if ( Input.Down( InputButton.Jump ) )
+			if ( Input.Down( "Jump" ) )
 			{
 
 				Velocity += Vector3.Up * ( jumpStrength + pawn.RankIndex * 30 );
