@@ -75,7 +75,7 @@ public class StudBot : Bot
                                Vector3.Forward * magnetValue;
         }
         
-        DebugOverlay.Line(pawn.Position, pawn.Position + Input.AnalogMove * 100f);
+        pawn.BuildInput();
     }
 
     public static string[] BotPhrases = new string[]
@@ -132,13 +132,16 @@ public class StudBot : Bot
 
     public override void Tick()
     {
-        Client.Pawn.Rotation =
+        if (Client.Pawn is not Player player)
+            return;
+        
+        player.Rotation =
             Rotation.FromYaw((Noise.Perlin(lifeTime * 10f * Crazyness / 2f, randSeed, randSeed) - 0.5f) * 40f *
                              Crazyness);
 
         if (nextMessage <= 0f)
         {
-            (Client.Pawn as Player).Say(Sandbox.Game.Random.FromArray<string>(BotPhrases));
+            player.Say(Sandbox.Game.Random.FromArray<string>(BotPhrases));
             nextMessage = Sandbox.Game.Random.Float(6f, 30f);
         }
     }
