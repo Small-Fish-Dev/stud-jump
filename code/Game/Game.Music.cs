@@ -6,14 +6,14 @@ public partial class Game
 	static Sound backgroundMusic;
 	public static bool MusicPlaying = true;
 
-	[Event.Tick.Client]
+	[GameEvent.Tick.Client]
 	public void LoadMusic()
 	{
 
 		if ( MusicPlaying )
 		{
 
-			if ( backgroundMusic.Finished )
+			if ( !backgroundMusic.IsPlaying )
 			{
 
 				backgroundMusic = Sound.FromScreen( "goumi-remix" ); // You cannot stop it.
