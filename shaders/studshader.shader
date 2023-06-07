@@ -75,11 +75,9 @@ PS
 	//
 	float4 MainPs( PixelInput i ) : SV_Target
 	{
-		Material m = GatherMaterial( i );
+		Material m = Material::From( i );
 		m.Albedo *= Tex2D( g_tTint, float2(0.0f, 0.0f) ).rgb;
 
-		ShadingModelValveStandard sm;
-
-		return FinalizePixelMaterial( i, m, sm );
+		return ShadingModelStandard::Shade( i, m );
 	}
 }
